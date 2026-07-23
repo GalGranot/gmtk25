@@ -13,7 +13,6 @@ public partial class Card : Node2D {
     public static event Action<Card> on_click;
 
     public override void _Ready() {
-		_Initialize(new(Rank.Ace, Suit.Clubs));
         area.InputEvent += on_clicked;
     }
 
@@ -29,6 +28,7 @@ public partial class Card : Node2D {
             mouse.ButtonIndex == MouseButton.Left &&
             mouse.Pressed
         ) {
+            GD.Print(name);
             on_click?.Invoke(this);
         }
     }

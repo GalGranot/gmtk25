@@ -14,6 +14,7 @@ public static class CardUtils {
                 // deck.Add(new(Rank.Ace, Suit.Clubs));
             }
         }
+        Random.randomize_list(deck);
         return deck;
     }
 }

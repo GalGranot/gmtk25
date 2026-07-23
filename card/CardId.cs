@@ -13,7 +13,7 @@ public record struct CardId {
     public string name => $"{rank} of {suit}";
 
     public int score => (rank, suit) switch {
-        (Rank.Ace, _) => 1,
+        (Rank.Ace, _) => 11,
         (Rank.Two, _) => 2,
         (Rank.Three, _) => 3,
         (Rank.Four, _) => 4,
@@ -25,8 +25,7 @@ public record struct CardId {
         (Rank.Ten, _) => 10,
         (Rank.Jack, _) => 10,
         (Rank.Queen, _) => 10,
-        (Rank.King, Suit.Diamonds) or (Rank.King, Suit.Hearts) => -1,
-        (Rank.King, Suit.Clubs) or (Rank.King, Suit.Spades) => 10,
+        (Rank.King, _) => 10,
 
         _ => throw new System.Exception("Invalid rank"),
     };
