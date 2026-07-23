@@ -25,15 +25,23 @@ public partial class Main : Node {
     TaskCompletionSource<CardSlot> choose_playing_card_tcs;
 
     /*=============================================================================
+    * Events
+    =============================================================================*/
+    public event Action<int> on_score_change;
+
+    /*=============================================================================
     * Misc.
     =============================================================================*/
     [Export] PackedScene card_scene;
+    [Export] Hud hud;
     GameConfig config;
+    int score;
 
     /*=============================================================================
     * Godot Callbacks
     =============================================================================*/
     public override void _Ready() {
+        hud._Initialize(this);
         config = GD.Load<GameConfig>("res://config/GameConfig.tres");
         deck = CardUtils.new_deck();
         playing_slots = [lcard, rcard];
@@ -76,19 +84,27 @@ public partial class Main : Node {
             if(winner == delay) {
                 GD.Print("Too slow!");
             } else {
-                CardSlot chosen = choose_playing_card_tcs.Task.Result;
-                CardSlot other = chosen == lcard ? rcard : lcard;
+
+                CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
+                Card chosen_card = chosen_slot.eject();
+                update_score(chosen_card.score);
+                CardSlot other = chosen_slot == lcard ? rcard : lcard;
                 Func<Task> kill_other_card = async () => {
                     Card to_kill = other.eject();
                     await discard_slot.animate_to(to_kill);
                     to_kill.QueueFree();
                 };
                 await Task.WhenAll(
-                    played.take_and_animate_card(chosen.eject()),
+                    played.take_and_animate_card(chosen_card),
                     kill_other_card()
                 );
             }
         }
+    }
+
+    void update_score(int to_add) {
+        score += to_add;
+        on_score_change?.Invoke(score);
     }
 
     /*=============================================================================
