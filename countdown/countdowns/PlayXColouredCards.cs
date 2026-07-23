@@ -13,17 +13,17 @@ public partial class PlayXColouredCards : Countdown, IOnCardPlayed {
     }
 
     void update_label() {
-        label.Text = $"Play {played_cards}/{required_cards} {colour} cards";
+        label.Text = $"Play {played_cards}/{required_cards} {colour} cards{result_on_complete.name}";
     }
 
-    public CountdownState on_card_played(Card card) {
+    public CountdownResult on_card_played(Card card) {
         if (card.colour == colour) {
             played_cards += 1;
             update_label();
             if (played_cards >= required_cards) {
-                return CountdownState.Finished;
+                return result_on_complete;
             }
         }
-        return CountdownState.Running;
+        return new CountdownResult.Running();
     }
 }

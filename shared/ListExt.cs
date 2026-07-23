@@ -67,7 +67,7 @@ public static class ListExt {
     }
 
     public static T RandomElement<T>(this IEnumerable<T> ls) {
-        int randi = Random.in_range(ls.Count());
+        int randi = Random.int_in_range(ls.Count());
         return ls.ElementAt(randi);
     }
 }

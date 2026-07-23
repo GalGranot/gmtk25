@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Godot;
 
@@ -8,6 +9,7 @@ public partial class CountdownManager : Node {
     List<Countdown> countdowns = new();
     GameConfig config;
     [Export] PackedScene[] countdown_scenes;
+    public event Action<CountdownResult> on_countdown_finished;
 
     public override void _Ready() {
         config = GD.Load<GameConfig>("res://config/GameConfig.tres");
@@ -30,6 +32,7 @@ public partial class CountdownManager : Node {
     void spawn_countdown() {
         PackedScene scene = countdown_scenes.RandomElement();
         Countdown cd = scene.Instantiate<Countdown>();
+        cd._Initialize(random_result());
         AddChild(cd);
         countdowns.Add(cd);
 
@@ -47,6 +50,25 @@ public partial class CountdownManager : Node {
         }
     }
 
+    //! FIXME: Hardcoded currently:
+    //! 30% Mult and 70% Add.
+    //! x0.5 < mult < x5
+    //! -0.1 * score < to add < 2 * score
+    //! FIXME: Make this come from config
+    CountdownResult random_result() {
+        int randi = Random.int_in_range(10);
+        if(randi < 3) {
+            float rand_mult = Random.float_in_range(0.5f, 5f);
+            rand_mult = (float)Math.Round(rand_mult, 1);
+            return new CountdownResult.MultScore(rand_mult);
+        } else {
+            int score = main.score;
+            int to_add = score < 20 ? score + 10 : Random.int_in_range(-(int)(score * 0.1f), score * 2);
+            to_add = Mathf.Max(to_add, 10);
+            return new CountdownResult.AddScore(to_add);
+        }
+    }
+
     async Task tick() {
         while (true) {
             await Time.WaitForSeconds(this, 5f);
@@ -54,7 +76,7 @@ public partial class CountdownManager : Node {
                 Countdown cd = countdowns[i];
                 cd.ticks += 1;
                 if (cd.ticks >= cd.seconds) {
-                    delete_countdown_at(i);
+                    finish_countdown_at(i);
                 }
             }
         }
@@ -65,15 +87,17 @@ public partial class CountdownManager : Node {
             Countdown cd = countdowns[i];
             switch (cd) {
                 case IOnCardPlayed cd_on_card_played:
-                    if (cd_on_card_played.on_card_played(card) is CountdownState.Finished) {
-                        delete_countdown_at(i);
+                    CountdownResult result = cd_on_card_played.on_card_played(card);
+                    if(result is not CountdownResult.Running) {
+                        on_countdown_finished?.Invoke(result);
+                        finish_countdown_at(i);
                     }
                     break;
             }
         }
     }
 
-    void delete_countdown_at(int i) {
+    void finish_countdown_at(int i) {
         countdowns[i].QueueFree();
         countdowns.RemoveAt(i);
     }

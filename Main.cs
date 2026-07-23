@@ -46,7 +46,7 @@ public partial class Main : Node {
 
     GameConfig config;
     bool is_paused = false;
-    int score;
+    public int score { get; private set; }
 
     /*=============================================================================
     * Godot Callbacks
@@ -61,6 +61,7 @@ public partial class Main : Node {
 
         // Countdown Initialization
         countdown_manager._Initialize(this);
+        countdown_manager.on_countdown_finished += on_countdown_finished;
 
         // UI Initialization
         question_mark_icon.on_click += on_question_mark_clicked;
@@ -108,7 +109,7 @@ public partial class Main : Node {
             if (winner == choice_window) {
                 GD.Print("Too slow!");
                 //! FIXME: Accum fn?
-                update_score(-(playing_slots[0].peek().score + playing_slots[1].peek().score));
+                update_score(score - (playing_slots[0].peek().score + playing_slots[1].peek().score));
                 await Task.WhenAll(playing_slots.Map(s => discard_card(s.eject())));
                 continue;
             }
@@ -116,7 +117,7 @@ public partial class Main : Node {
             Card chosen_card = chosen_slot.eject();
             on_card_played?.Invoke(chosen_card);
 
-            update_score(chosen_card.score);
+            update_score(score + chosen_card.score);
             Card old_played = played.eject();
             await played.take_and_animate_card(chosen_card, config.card_move_time_secs);
             old_played.QueueFree();
@@ -128,9 +129,20 @@ public partial class Main : Node {
         card.QueueFree();
     }
 
-    void update_score(int to_add) {
-        score += to_add;
+    void update_score(int new_score) {
+        score = new_score;
         on_score_change?.Invoke(score);
+    }
+
+    void on_countdown_finished(CountdownResult result) {
+        switch(result) {
+            case CountdownResult.AddScore(int to_add):
+                update_score(score + to_add);
+                break;
+            case CountdownResult.MultScore(float mult_score):
+                update_score((int)(score * mult_score));
+                break;
+        }
     }
 
     /*=============================================================================
