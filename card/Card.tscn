@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://lte1srrmsj0x"]
+
+[ext_resource type="Script" uid="uid://6h082hpd37gh" path="res://card/Card.cs" id="1_lx876"]
+[ext_resource type="PackedScene" uid="uid://bncbxlfa5v84t" path="res://editor/EditorGizmo.tscn" id="2_tyd3v"]
+[ext_resource type="Texture2D" uid="uid://bjfy2gm7egq57" path="res://sprites/cardBack_blue2.png" id="3_yrjbe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lx876"]
+size = Vector2(138, 188)
+
+[node name="Card" type="Node2D" unique_id=655115506 node_paths=PackedStringArray("front", "back", "area")]
+script = ExtResource("1_lx876")
+front = NodePath("front")
+back = NodePath("back")
+area = NodePath("Area2D")
+
+[node name="front" type="Sprite2D" parent="." unique_id=1358173520]
+
+[node name="back" type="Sprite2D" parent="." unique_id=643698484]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=42615873]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=676334244]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_lx876")
+
+[node name="EditorGizmo" parent="." unique_id=950234037 instance=ExtResource("2_tyd3v")]
+texture = ExtResource("3_yrjbe")

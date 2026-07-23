@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bncbxlfa5v84t"]
+
+[ext_resource type="Script" uid="uid://ix2j1f58fo2c" path="res://editor/EditorGizmo.cs" id="1_8fwrf"]
+
+[node name="EditorGizmo" type="Node2D" unique_id=950234037]
+script = ExtResource("1_8fwrf")
