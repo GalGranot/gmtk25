@@ -25,6 +25,11 @@ public partial class CardSlot : Node2D {
     public Card peek_unchecked() => card;
 
     public async Task take_and_animate_card(Card card) {
+        this.insert_into(card);
+        await animate_to(card);
+    }
+
+    public async Task animate_to(Card card) {
         Tween tween = CreateTween()
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Cubic);
