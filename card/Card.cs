@@ -8,6 +8,7 @@ public partial class Card : Node2D {
     [Export] Sprite2D front;
     [Export] Sprite2D back;
     [Export] Area2D area;
+	public CardSlot slot;
 
     public static event Action<Card> on_click;
 

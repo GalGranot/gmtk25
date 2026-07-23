@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c8xcu4ydy0lpl"]
+
+[ext_resource type="Script" uid="uid://bww470yltdfbt" path="res://containers/CardSlot.cs" id="1_cvyis"]
+[ext_resource type="PackedScene" uid="uid://bncbxlfa5v84t" path="res://editor/EditorGizmo.tscn" id="2_y0kbw"]
+
+[node name="CardSlot" type="Node2D" unique_id=133943722]
+script = ExtResource("1_cvyis")
+
+[node name="EditorGizmo" parent="." unique_id=950234037 instance=ExtResource("2_y0kbw")]
