@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c0hi5diu6tv7c"]
+
+[ext_resource type="Script" uid="uid://blqrolwsycb40" path="res://Main.cs" id="1_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://lte1srrmsj0x" path="res://card/Card.tscn" id="2_r0du0"]
+[ext_resource type="PackedScene" uid="uid://c8xcu4ydy0lpl" path="res://containers/CardSlot.tscn" id="2_uu6xs"]
+
+[node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played")]
+script = ExtResource("1_uu6xs")
+deck_slot = NodePath("Deck")
+lcard = NodePath("LeftCard")
+rcard = NodePath("RightCard")
+played = NodePath("Played")
+card_scene = ExtResource("2_r0du0")
+
+[node name="Played" parent="." unique_id=133943722 instance=ExtResource("2_uu6xs")]
+position = Vector2(1024, 512)
+
+[node name="Deck" parent="." unique_id=516705379 instance=ExtResource("2_uu6xs")]
+position = Vector2(128, 704)
+
+[node name="RightCard" parent="." unique_id=1564846623 instance=ExtResource("2_uu6xs")]
+position = Vector2(1792, 960)
+
+[node name="LeftCard" parent="." unique_id=207341790 instance=ExtResource("2_uu6xs")]
+position = Vector2(128, 960)
