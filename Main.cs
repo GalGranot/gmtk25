@@ -35,12 +35,15 @@ public partial class Main : Node {
     * Events
     =============================================================================*/
     public event Action<int> on_score_change;
+    public event Action<Card> on_card_played;
 
     /*=============================================================================
     * Misc.
     =============================================================================*/
     [Export] Hud hud;
     [Export] PackedScene card_scene;
+    [Export] CountdownManager countdown_manager;
+
     GameConfig config;
     bool is_paused = false;
     int score;
@@ -52,6 +55,7 @@ public partial class Main : Node {
         instructions = instructions_scene.Instantiate<CanvasLayer>();
         AddChild(instructions);
         instructions.Hide();
+        countdown_manager._Initialize(this);
 
         question_mark_icon.on_click += on_question_mark_clicked;
 
@@ -106,6 +110,8 @@ public partial class Main : Node {
             }
             CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
             Card chosen_card = chosen_slot.eject();
+            on_card_played?.Invoke(chosen_card);
+
             update_score(chosen_card.score);
             Card old_played = played.eject();
             await played.take_and_animate_card(chosen_card, config.card_move_time);

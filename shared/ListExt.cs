@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class ListExt {
     public static bool IsEmpty<T>(this List<T> ls) => ls.Count == 0;
@@ -63,5 +64,10 @@ public static class ListExt {
             }
         }
         return default;
+    }
+
+    public static T RandomElement<T>(this IEnumerable<T> ls) {
+        int randi = Random.in_range(ls.Count());
+        return ls.ElementAt(randi);
     }
 }

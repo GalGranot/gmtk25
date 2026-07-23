@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c8xcu4ydy0lpl" path="res://containers/CardSlot.tscn" id="2_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://bm4hmgmnsk8n4" path="res://ui/Hud.tscn" id="4_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://k70ij67yr64k" path="res://ui/QuestionMark.tscn" id="5_fos0i"]
+[ext_resource type="PackedScene" uid="uid://cfb474acgc826" path="res://countdown/CountdownManager.tscn" id="7_lgr22"]
 
-[node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "question_mark_icon", "hud")]
+[node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "question_mark_icon", "hud", "countdown_manager")]
 script = ExtResource("1_uu6xs")
 deck_slot = NodePath("Deck")
 lcard = NodePath("LeftCard")
@@ -18,6 +19,7 @@ question_mark_icon = NodePath("QuestionMark")
 instructions_scene = ExtResource("2_3dxm6")
 hud = NodePath("Hud")
 card_scene = ExtResource("2_r0du0")
+countdown_manager = NodePath("CountdownManager")
 
 [node name="Played" parent="." unique_id=133943722 instance=ExtResource("2_uu6xs")]
 position = Vector2(896, 512)
@@ -39,3 +41,5 @@ position = Vector2(1792, 128)
 [node name="QuestionMark" parent="." unique_id=697447472 instance=ExtResource("5_fos0i")]
 position = Vector2(1791.9999, 511.99997)
 scale = Vector2(1, 0.99303913)
+
+[node name="CountdownManager" parent="." unique_id=794948173 instance=ExtResource("7_lgr22")]
