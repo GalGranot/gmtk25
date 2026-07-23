@@ -50,6 +50,8 @@ public partial class Main : Node {
         init_with_back(discard_slot);
         discard_slot.peek().ZIndex = 999;
 
+        played.take_and_animate_card(spawn_card(deck.Pop(), deck_slot.Position));
+
         main();
     }
 
@@ -76,30 +78,28 @@ public partial class Main : Node {
     async Task main() {
         while(true) {
             choose_playing_card_tcs = new();
-            Task deal_playing_cards_task = deal_playing_cards();
+            await deal_playing_cards();
             Task card_choice = choose_playing_card_tcs.Task;
-            Task delay = Time.WaitForSeconds(this, 3);
+            Task choice_window = Time.WaitForSeconds(this, config.choice_window_time);
 
-            Task winner = await Task.WhenAny(card_choice, delay);
-            if(winner == delay) {
+            Task winner = await Task.WhenAny(card_choice, choice_window);
+            if(winner == choice_window) {
                 GD.Print("Too slow!");
-            } else {
-
-                CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
-                Card chosen_card = chosen_slot.eject();
-                update_score(chosen_card.score);
-                CardSlot other = chosen_slot == lcard ? rcard : lcard;
-                Func<Task> kill_other_card = async () => {
-                    Card to_kill = other.eject();
-                    await discard_slot.animate_to(to_kill);
-                    to_kill.QueueFree();
-                };
-                await Task.WhenAll(
-                    played.take_and_animate_card(chosen_card),
-                    kill_other_card()
-                );
+                //! FIXME: Accum fn?
+                update_score(-(playing_slots[0].peek().score + playing_slots[1].peek().score));
+                await Task.WhenAll(playing_slots.Map(s => discard_card(s.eject())));
+                continue;
             }
+            CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
+            Card chosen_card = chosen_slot.eject();
+            update_score(chosen_card.score);
+            await played.take_and_animate_card(chosen_card, config.card_move_time);
         }
+    }
+
+    async Task discard_card(Card card) {
+        await discard_slot.animate_to(card);
+        card.QueueFree();
     }
 
     void update_score(int to_add) {
@@ -119,8 +119,14 @@ public partial class Main : Node {
     }
 
     async Task deal_playing_cards() {
-        await Task.WhenAll(
-            playing_slots.Map(s => s.take_and_animate_card(spawn_card(deck.Pop(), deck_slot.Position)))
-        );
+        async Task deal(CardSlot slot) {
+            if(!slot.is_occupied) {
+                await slot.take_and_animate_card(
+                    spawn_card(deck.Pop(), deck_slot.Position),
+                    config.deal_time
+                );
+            }
+        }
+        await Task.WhenAll(playing_slots.Map(deal));
     }
 }

@@ -46,4 +46,6 @@ public partial class CardSlot : Node2D {
         tween.TweenProperty(card, "position", Position, duration);
         await ToSignal(tween, Tween.SignalName.Finished);
     }
+
+    public bool is_occupied => card != null;
 }
