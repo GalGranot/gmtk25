@@ -107,7 +107,9 @@ public partial class Main : Node {
             CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
             Card chosen_card = chosen_slot.eject();
             update_score(chosen_card.score);
+            Card old_played = played.eject();
             await played.take_and_animate_card(chosen_card, config.card_move_time);
+            old_played.QueueFree();
         }
     }
 
