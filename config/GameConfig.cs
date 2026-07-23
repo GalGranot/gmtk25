@@ -5,14 +5,21 @@ public partial class GameConfig : Resource {
     /*=============================================================================
     * Movement Times
     =============================================================================*/
-    [Export] public float card_move_time { get; set; } = 0.4f;
-    [Export] public float deal_time { get; set; } = 0.4f;
-    [Export] public float choice_window_time { get; set; } = 3f;
+    [Export] public float card_move_time_secs { get; set; } = 0.4f;
+    [Export] public float deal_time_secs { get; set; } = 0.4f;
+    [Export] public float choice_window_time_secs { get; set; } = 3f;
 
     /*=============================================================================
-    * Speeds
+    * Speeds & Delays
     =============================================================================*/
-    [Export] public float countdowns_move_down_speed = 500f;
+    [Export] public float countdowns_move_down_speed { get; set; } = 100f;
+    [Export] public float countdown_spawn_delay_secs { get; set; } = 4f;
+
+    /*=============================================================================
+    * Gameplay
+    =============================================================================*/
+    [Export] public int play_x_coloured_cards_required { get; set; } = 3;
+    [Export] public int default_countdown_lifetime_secs { get; set; } = 5;
 
     /*=============================================================================
     * Input Map

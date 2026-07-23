@@ -102,7 +102,7 @@ public partial class Main : Node {
             choose_playing_card_tcs = new();
             await deal_playing_cards();
             Task card_choice = choose_playing_card_tcs.Task;
-            Task choice_window = Time.WaitForSeconds(this, config.choice_window_time);
+            Task choice_window = Time.WaitForSeconds(this, config.choice_window_time_secs);
 
             Task winner = await Task.WhenAny(card_choice, choice_window);
             if (winner == choice_window) {
@@ -118,7 +118,7 @@ public partial class Main : Node {
 
             update_score(chosen_card.score);
             Card old_played = played.eject();
-            await played.take_and_animate_card(chosen_card, config.card_move_time);
+            await played.take_and_animate_card(chosen_card, config.card_move_time_secs);
             old_played.QueueFree();
         }
     }
@@ -149,7 +149,7 @@ public partial class Main : Node {
             if (!slot.is_occupied) {
                 await slot.take_and_animate_card(
                     spawn_card(deck.Pop(), deck_slot.Position),
-                    config.deal_time
+                    config.deal_time_secs
                 );
             }
         }

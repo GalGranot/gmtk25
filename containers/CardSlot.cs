@@ -10,7 +10,7 @@ public partial class CardSlot : Node2D {
 
     public override void _Ready() {
         config = GD.Load<GameConfig>("res://config/GameConfig.tres");
-        default_move_duration = config.card_move_time;
+        default_move_duration = config.card_move_time_secs;
     }
 
     public void insert_into(Card card) {

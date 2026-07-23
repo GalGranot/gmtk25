@@ -22,7 +22,7 @@ public partial class CountdownManager : Node {
 
     async Task spawn_countdowns() {
         while (true) {
-            await Time.WaitForSeconds(this, 4f); //! FIXME: Get duration from config, also lengthen
+            await Time.WaitForSeconds(this, config.countdown_spawn_delay_secs);
             spawn_countdown();
         }
     }
@@ -35,7 +35,11 @@ public partial class CountdownManager : Node {
 
         switch (cd) {
             case PlayXColouredCards play_x_coloured_cards:
-                play_x_coloured_cards._Initialize(5, 5, CardColour.Red); //! FIXME: get these from gameplay
+                play_x_coloured_cards._Initialize(
+                    seconds: config.default_countdown_lifetime_secs,
+                    required_cards: config.play_x_coloured_cards_required,
+                    colour: EnumUtils.random_enum<CardColour>()
+                );
                 break;
 
             default:
