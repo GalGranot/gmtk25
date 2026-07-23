@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="GameConfig" format=3 uid="uid://cgqfdjwb54lod"]
+
+[ext_resource type="Script" uid="uid://mt6ltist6uyj" path="res://config/GameConfig.cs" id="1_86f85"]
+
+[resource]
+script = ExtResource("1_86f85")
