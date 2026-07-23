@@ -78,9 +78,9 @@ public partial class Main : Node {
     }
 
     public override void _Process(double delta) {
-        if(Input.IsActionPressed(config.move_left)) {
+        if (Input.IsActionPressed(config.move_left)) {
             choose_playing_card_tcs.TrySetResult(lcard);
-        } else if(Input.IsActionPressed(config.move_right)) {
+        } else if (Input.IsActionPressed(config.move_right)) {
             choose_playing_card_tcs.TrySetResult(rcard);
         }
     }
@@ -98,14 +98,14 @@ public partial class Main : Node {
     * Game
     =============================================================================*/
     async Task main() {
-        while(true) {
+        while (true) {
             choose_playing_card_tcs = new();
             await deal_playing_cards();
             Task card_choice = choose_playing_card_tcs.Task;
             Task choice_window = Time.WaitForSeconds(this, config.choice_window_time);
 
             Task winner = await Task.WhenAny(card_choice, choice_window);
-            if(winner == choice_window) {
+            if (winner == choice_window) {
                 GD.Print("Too slow!");
                 //! FIXME: Accum fn?
                 update_score(-(playing_slots[0].peek().score + playing_slots[1].peek().score));
@@ -146,7 +146,7 @@ public partial class Main : Node {
 
     async Task deal_playing_cards() {
         async Task deal(CardSlot slot) {
-            if(!slot.is_occupied) {
+            if (!slot.is_occupied) {
                 await slot.take_and_animate_card(
                     spawn_card(deck.Pop(), deck_slot.Position),
                     config.deal_time
@@ -160,7 +160,7 @@ public partial class Main : Node {
     * UI
     =============================================================================*/
     void on_question_mark_clicked() {
-        if(is_paused) {
+        if (is_paused) {
             instructions.Hide();
             GetTree().Paused = false;
         } else {

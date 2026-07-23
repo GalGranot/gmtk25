@@ -14,7 +14,7 @@ public partial class CardSlot : Node2D {
     }
 
     public void insert_into(Card card) {
-		card.slot = this;
+        card.slot = this;
         this.card = card;
     }
 

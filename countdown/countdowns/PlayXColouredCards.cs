@@ -5,7 +5,7 @@ public partial class PlayXColouredCards : Countdown, IOnCardPlayed {
     int required_cards;
     int played_cards = 0;
 
-    public void _Initialize(int seconds, int required_cards, CardColour colour)  {
+    public void _Initialize(int seconds, int required_cards, CardColour colour) {
         this.seconds = seconds;
         this.required_cards = required_cards;
         this.colour = colour;

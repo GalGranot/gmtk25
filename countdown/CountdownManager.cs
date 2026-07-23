@@ -21,7 +21,7 @@ public partial class CountdownManager : Node {
     }
 
     async Task spawn_countdowns() {
-        while(true) {
+        while (true) {
             await Time.WaitForSeconds(this, 4f); //! FIXME: Get duration from config, also lengthen
             spawn_countdown();
         }
@@ -33,23 +33,23 @@ public partial class CountdownManager : Node {
         AddChild(cd);
         countdowns.Add(cd);
 
-        switch(cd) {
+        switch (cd) {
             case PlayXColouredCards play_x_coloured_cards:
                 play_x_coloured_cards._Initialize(5, 5, CardColour.Red); //! FIXME: get these from gameplay
                 break;
-            
+
             default:
                 throw die_throw();
         }
     }
 
     async Task tick() {
-        while(true) {
+        while (true) {
             await Time.WaitForSeconds(this, 5f);
             for (int i = countdowns.Count - 1; i >= 0; i--) {
                 Countdown cd = countdowns[i];
                 cd.ticks += 1;
-                if(cd.ticks >= cd.seconds) {
+                if (cd.ticks >= cd.seconds) {
                     delete_countdown_at(i);
                 }
             }
@@ -59,7 +59,7 @@ public partial class CountdownManager : Node {
     void on_card_played(Card card) {
         for (int i = countdowns.Count - 1; i >= 0; i--) {
             Countdown cd = countdowns[i];
-            switch(cd) {
+            switch (cd) {
                 case IOnCardPlayed cd_on_card_played:
                     if (cd_on_card_played.on_card_played(card) is CountdownState.Finished) {
                         delete_countdown_at(i);
