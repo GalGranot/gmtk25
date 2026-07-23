@@ -52,25 +52,29 @@ public partial class Main : Node {
     * Godot Callbacks
     =============================================================================*/
     public override void _Ready() {
+        config = GD.Load<GameConfig>("res://config/GameConfig.tres");
+
+        // Instructions Initialization
         instructions = instructions_scene.Instantiate<CanvasLayer>();
         AddChild(instructions);
         instructions.Hide();
+
+        // Countdown Initialization
         countdown_manager._Initialize(this);
 
+        // UI Initialization
         question_mark_icon.on_click += on_question_mark_clicked;
-
         hud._Initialize(this);
-        config = GD.Load<GameConfig>("res://config/GameConfig.tres");
+
+        // Game Initialization
         deck = CardUtils.new_deck();
         playing_slots = [lcard, rcard];
-
         init_with_back(deck_slot);
         init_with_back(discard_slot);
         discard_slot.peek().ZIndex = 999;
+        played.take_and_animate_card(spawn_card(deck.Pop(), deck_slot.Position)).Forget();
 
-        played.take_and_animate_card(spawn_card(deck.Pop(), deck_slot.Position));
-
-        main();
+        main().Forget();
     }
 
     public override void _Process(double delta) {

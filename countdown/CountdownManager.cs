@@ -16,8 +16,8 @@ public partial class CountdownManager : Node {
     public void _Initialize(Main main) {
         this.main = main;
         main.on_card_played += on_card_played;
-        tick();
-        spawn_countdowns();
+        tick().Forget();
+        spawn_countdowns().Forget();
     }
 
     async Task spawn_countdowns() {
@@ -46,7 +46,6 @@ public partial class CountdownManager : Node {
     async Task tick() {
         while(true) {
             await Time.WaitForSeconds(this, 5f);
-            GD.Print($"Tick..."); //! FIXME: rmv
             for (int i = countdowns.Count - 1; i >= 0; i--) {
                 Countdown cd = countdowns[i];
                 cd.ticks += 1;

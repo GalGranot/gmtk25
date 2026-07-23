@@ -13,7 +13,6 @@ public partial class PlayXColouredCards : Countdown, IOnCardPlayed {
     }
 
     void update_label() {
-        GD.Print($"in update label"); //! FIXME: rmv
         label.Text = $"Play {played_cards}/{required_cards} {colour} cards";
     }
 
