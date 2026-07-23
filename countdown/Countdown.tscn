@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c8lmsy6hnkae4"]
+
+[ext_resource type="Script" uid="uid://djw36y5h8ivtg" path="res://countdown/Countdown.cs" id="1_1wjli"]
+
+[node name="Countdown" type="Node2D" unique_id=697885764 node_paths=PackedStringArray("text")]
+script = ExtResource("1_1wjli")
+text = NodePath("Countdown Text")
+
+[node name="Countdown Text" type="Label" parent="." unique_id=1648759349]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 685.0
+offset_bottom = 133.0
+theme_override_font_sizes/font_size = 50
+text = "SOME COUNTDOWN TEXT"

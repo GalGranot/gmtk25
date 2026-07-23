@@ -10,6 +10,11 @@ public partial class GameConfig : Resource {
     [Export] public float choice_window_time { get; set; } = 3f;
 
     /*=============================================================================
+    * Countdown Times
+    =============================================================================*/
+    [Export] public float countdown_spawn_delay = 5f;
+
+    /*=============================================================================
     * Input Map
     =============================================================================*/
     [Export] public string move_left = "choose_left";

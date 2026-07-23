@@ -61,5 +61,7 @@ public partial class Card : Node2D {
     public void show_front() => change_orientation(Orientation.Front);
     public void show_back() => change_orientation(Orientation.Back);
     public int score => id.score;
+    public Rank rank => id.rank;
+    public Suit suit => id.suit;
 
 }
