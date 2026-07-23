@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://b3q8p46iw6ymi"]
-
-[ext_resource type="Script" uid="uid://d22yv8q7euv26" path="res://countdown/CountdownSpawner.cs" id="1_kw83j"]
-[ext_resource type="PackedScene" uid="uid://c8lmsy6hnkae4" path="res://countdown/Countdown.tscn" id="2_v8mao"]
-
-[node name="CountdownSpawner" type="Node2D" unique_id=1667928131]
-script = ExtResource("1_kw83j")
-countdown_scene = ExtResource("2_v8mao")

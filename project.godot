@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="gmtk25"
-run/main_scene="uid://b3q8p46iw6ymi"
+run/main_scene="uid://c0hi5diu6tv7c"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
