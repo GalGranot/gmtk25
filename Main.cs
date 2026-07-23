@@ -30,10 +30,18 @@ public partial class Main : Node {
     [Export] PackedScene card_scene;
     GameConfig config;
 
+    /*=============================================================================
+    * Godot Callbacks
+    =============================================================================*/
     public override void _Ready() {
         config = GD.Load<GameConfig>("res://config/GameConfig.tres");
         deck = CardUtils.new_deck();
         playing_slots = [lcard, rcard];
+
+        init_with_back(deck_slot);
+        init_with_back(discard_slot);
+        discard_slot.peek().ZIndex = 999;
+
         main();
     }
 
@@ -43,6 +51,15 @@ public partial class Main : Node {
         } else if(Input.IsActionPressed(config.move_right)) {
             choose_playing_card_tcs.TrySetResult(rcard);
         }
+    }
+
+    /*=============================================================================
+    * Init
+    =============================================================================*/
+    void init_with_back(CardSlot slot) {
+        Card card = spawn_card(CardId.random(), slot.Position);
+        card.show_back();
+        slot.insert_into(card);
     }
 
     /*=============================================================================
