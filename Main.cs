@@ -25,6 +25,13 @@ public partial class Main : Node {
     TaskCompletionSource<CardSlot> choose_playing_card_tcs;
 
     /*=============================================================================
+    * UI
+    =============================================================================*/
+    [Export] QuestionMark question_mark_icon;
+    [Export] PackedScene instructions_scene;
+    CanvasLayer instructions;
+
+    /*=============================================================================
     * Events
     =============================================================================*/
     public event Action<int> on_score_change;
@@ -32,15 +39,22 @@ public partial class Main : Node {
     /*=============================================================================
     * Misc.
     =============================================================================*/
-    [Export] PackedScene card_scene;
     [Export] Hud hud;
+    [Export] PackedScene card_scene;
     GameConfig config;
+    bool is_paused = false;
     int score;
 
     /*=============================================================================
     * Godot Callbacks
     =============================================================================*/
     public override void _Ready() {
+        instructions = instructions_scene.Instantiate<CanvasLayer>();
+        AddChild(instructions);
+        instructions.Hide();
+
+        question_mark_icon.on_click += on_question_mark_clicked;
+
         hud._Initialize(this);
         config = GD.Load<GameConfig>("res://config/GameConfig.tres");
         deck = CardUtils.new_deck();
@@ -128,5 +142,19 @@ public partial class Main : Node {
             }
         }
         await Task.WhenAll(playing_slots.Map(deal));
+    }
+
+    /*=============================================================================
+    * UI
+    =============================================================================*/
+    void on_question_mark_clicked() {
+        if(is_paused) {
+            instructions.Hide();
+            GetTree().Paused = false;
+        } else {
+            GetTree().Paused = true;
+            instructions.Show();
+        }
+        is_paused = !is_paused;
     }
 }

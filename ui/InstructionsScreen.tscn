@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://xl1ydu4tp7d4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qne3"]
+bg_color = Color(0.4521439, 0.27311108, 0.54203075, 1)
+
+[node name="Instructions Screen" type="CanvasLayer" unique_id=1106798087]
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1101159591]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 636.57886
+offset_bottom = 337.10522
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.76, 0.76)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CenterContainer" unique_id=122568657]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_6qne3")
+text = "Welcome to XXX!
+Use the arrow keys to choose a card to play.
+If you miss the countdown, both cards will be discarded.
+Good luck!"
+horizontal_alignment = 1

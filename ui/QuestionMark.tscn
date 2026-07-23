@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://k70ij67yr64k"]
+
+[ext_resource type="Texture2D" uid="uid://btoeuf22njso4" path="res://sprites/question_mark.png" id="1_atdcf"]
+[ext_resource type="Script" uid="uid://badfhc6ad7va5" path="res://ui/QuestionMark.cs" id="1_fufne"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atdcf"]
+size = Vector2(22.135162, 21.571228)
+
+[node name="QuestionMark" type="Node2D" unique_id=697447472 node_paths=PackedStringArray("area")]
+process_mode = 3
+script = ExtResource("1_fufne")
+area = NodePath("Area2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=611391465]
+scale = Vector2(12.23, 12.23)
+texture = ExtResource("1_atdcf")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1808734454]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1579304737]
+position = Vector2(-6.8619385, -5.159912)
+scale = Vector2(6.427592, 6.568014)
+shape = SubResource("RectangleShape2D_atdcf")
