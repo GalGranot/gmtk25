@@ -27,4 +27,7 @@ public partial class GameConfig : Resource {
     =============================================================================*/
     [Export] public string move_left = "choose_left";
     [Export] public string move_right = "choose_right";
+    [Export] public string choose_up = "choose_up";
+    [Export] public string choose_down = "choose_down";
+    [Export] public string spacebar = "spacebar";
 }

@@ -13,3 +13,19 @@ public enum Rank {
     Queen,
     King,
 }
+
+public static class RankExt {
+    public static Rank up(this Rank rank) {
+        if (rank is not Rank.King) {
+            return rank + 1;
+        }
+        return Rank.Ace;
+    }
+
+    public static Rank down(this Rank rank) {
+        if(rank is not Rank.Ace) {
+            return rank - 1;
+        }
+        return Rank.King;
+    }
+}

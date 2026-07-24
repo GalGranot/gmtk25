@@ -88,6 +88,17 @@ public partial class Main : Node {
         if (Input.IsActionJustPressed(config.move_right)) {
             choose_playing_card_tcs.TrySetResult(rcard);
         }
+        if (!played.is_occupied) { return; }
+        Card card = played.peek();
+        if(Input.IsActionJustPressed(config.choose_up)) {
+            card.up();
+        }
+        if(Input.IsActionJustPressed(config.choose_down)) {
+            card.down();
+        }
+        if(Input.IsActionJustPressed(config.spacebar)) {
+            card.change_suit();
+        }
     }
 
     /*=============================================================================

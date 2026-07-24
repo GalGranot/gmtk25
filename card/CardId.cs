@@ -1,6 +1,6 @@
 public record struct CardId {
-    public readonly Rank rank { get; }
-    public readonly Suit suit { get; }
+    public Rank rank { get; }
+    public Suit suit { get; }
 
     public CardId(Rank rank, Suit suit) {
         this.rank = rank;

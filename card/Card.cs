@@ -64,4 +64,26 @@ public partial class Card : Node2D {
     public Suit suit => id.suit;
     public Rank rank => id.rank;
     public CardColour colour => id.suit.Colour();
+
+    public void up() {
+        id = new CardId(id.rank.up(), id.suit);
+        _Initialize(id);
+    }
+
+    public void down() {
+        id = new CardId(id.rank.down(), id.suit);
+        _Initialize(id);
+    }
+
+    public void change_suit() {
+        Suit new_suit = id.suit switch {
+            Suit.Clubs => Suit.Diamonds,
+            Suit.Diamonds => Suit.Spades,
+            Suit.Spades => Suit.Hearts,
+            Suit.Hearts => Suit.Clubs,
+            _ => throw die_throw(),
+        };
+        id = new CardId(id.rank, new_suit);
+        _Initialize(id);
+    }
 }
