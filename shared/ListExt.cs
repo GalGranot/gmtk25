@@ -8,7 +8,9 @@ public static class ListExt {
 
     public static T Pop<T>(this List<T> ls) {
         int last = ls.Count - 1;
-        assert(last >= 0);
+        if(last < 0) {
+            throw new System.Exception();
+        }
         T item = ls[last];
         ls.RemoveAt(last);
         return item;

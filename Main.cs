@@ -170,11 +170,24 @@ public partial class Main : Node {
 
     async Task deal_playing_cards() {
         async Task deal(CardSlot slot) {
+            CardId id;
+            while(true) {
+                try {
+                    id = deck.Pop();
+                    break;
+                } catch(Exception) {
+                    deck_refill();
+                }
+            }
             if (!slot.is_occupied) {
-                await slot.take_and_animate_card(
-                    spawn_card(deck.Pop(), deck_slot.Position),
-                    config.deal_time_secs
-                );
+                try {
+                    await slot.take_and_animate_card(
+                        spawn_card(deck.Pop(), deck_slot.Position),
+                        config.deal_time_secs
+                    );
+                } catch(Exception) {
+                    deck_refill();
+                }
             }
         }
         await Task.WhenAll(playing_slots.Map(deal));
@@ -198,6 +211,14 @@ public partial class Main : Node {
         card_played = card,
         last_cards_played = last_played.peek(),
     };
+
+    /*=============================================================================
+    * Misc
+    =============================================================================*/
+    void deck_refill() {
+        deck = CardUtils.new_deck();
+        GD.PrintErr($"Deck empty! maybe do something with it"); //! FIXME: rmv
+    }
 }
 
 public record CardPlayedInfo {

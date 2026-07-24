@@ -31,9 +31,8 @@ public partial class Countdown : Node2D {
         prettify_label(perk_text);
         prettify_label(cd_text);
 
-
-        var stylebox = cd_text.GetThemeStylebox("normal") as StyleBoxFlat;
-        stylebox.BgColor = Colors.RebeccaPurple;
+        Tween color_modulate = CreateTween();
+        color_modulate.TweenProperty(this, "modulate", Colors.Red, 5f);
     }
 
     void prettify_label(Label label) {
