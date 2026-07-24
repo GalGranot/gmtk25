@@ -75,6 +75,9 @@ public partial class CountdownManager : Node {
     async Task spawn_ticker(Countdown cd) {
         while (true) {
             await Time.WaitForSeconds(this, 1f);
+            if(!IsInstanceValid(cd)) {
+                return;
+            }
             cd.tick();
             if (cd.ticks >= cd.seconds) {
                 int i = countdowns.FindIndex(countdown => countdown == cd);
