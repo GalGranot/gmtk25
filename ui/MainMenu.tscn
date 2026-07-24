@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bus7h5cs7g6uk"]
+
+[ext_resource type="Script" uid="uid://p51fe12x60r2" path="res://ui/MainMenu.cs" id="1_b00nv"]
+
+[node name="MainMenu" type="Control" unique_id=68921408 node_paths=PackedStringArray("quit", "start")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_b00nv")
+quit = NodePath("VBoxContainer/Quit")
+start = NodePath("VBoxContainer/Start")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1170514561]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 172.0
+offset_top = 32.0
+offset_right = 1668.0
+offset_bottom = 912.0
+grow_horizontal = 2
+theme_override_constants/separation = 300
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1998724471]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Welcome to Countdown Madness! (working title)"
+
+[node name="Start" type="Button" parent="VBoxContainer" unique_id=1499540874]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Start Game"
+
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=2095366125]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Quit Game"
