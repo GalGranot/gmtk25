@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Godot;
 
@@ -94,7 +93,7 @@ public partial class CountdownManager : Node {
             cd.tick();
             if (cd.ticks >= cd.seconds) {
                 int i = countdowns.FindIndex(countdown => countdown == cd);
-                finish_countdown_at(i);
+                finish_countdown_at(i, false);
                 return;
             }
         }
@@ -108,7 +107,7 @@ public partial class CountdownManager : Node {
                     CountdownResult result = cd_on_card_played.on_card_played(on_card_played);
                     if (result is not CountdownResult.Running) {
                         on_countdown_finished?.Invoke(result);
-                        finish_countdown_at(i);
+                        finish_countdown_at(i, true);
                     }
                     break;
             }
@@ -124,16 +123,16 @@ public partial class CountdownManager : Node {
                         int i = countdowns.FindIndex(countdown => countdown == cd);
                         if(i == -1) { GD.Print($"not found"); } //! FIXME: rmv
                         GD.PrintErr($"Immediately finishing play poker hand countdown\nWe should later make a delay here"); //! FIXME: rmv
-                        finish_countdown_at(i);
+                        finish_countdown_at(i, true);
                         return;
                     }
                     break;
             }
         }
 
-    void finish_countdown_at(int i) {
+    void finish_countdown_at(int i, bool is_successful) {
         if(i < countdowns.Count && i >= 0) {
-            countdowns[i].QueueFree();
+            countdowns[i].kill_countdown(is_successful).Forget();
             countdowns.RemoveAt(i);
         }
     }

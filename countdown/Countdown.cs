@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 public partial class Countdown : Node2D {
@@ -61,6 +62,30 @@ public partial class Countdown : Node2D {
         var p = Position;
         p.Y += (float)delta * config.countdowns_move_down_speed;
         Position = p;
+    }
+
+    public async Task kill_countdown(bool is_successful) {
+        Vector2 scatter_direction = new Vector2(
+            Random.float_in_range(-50f, 50f),
+            Random.float_in_range(-80f, -20f)
+        );
+        Tween tween = CreateTween().SetParallel(true);
+
+        tween.TweenProperty(this, "scale", Scale * 1.7f, 0.3f)
+            .SetEase(Tween.EaseType.Out)
+            .SetTrans(Tween.TransitionType.Back);
+
+        tween.TweenProperty(this, "position", Position + scatter_direction, 0.4f)
+            .SetEase(Tween.EaseType.Out)
+            .SetTrans(Tween.TransitionType.Quad);
+            
+        Modulate = is_successful ? Colors.Green : Colors.Red;
+        Color transparent_colour = Modulate;
+        
+        transparent_colour.A = 0f;
+        tween.TweenProperty(this, "modulate", transparent_colour, 1)
+            .SetDelay(0.1f);
+        tween.Chain().TweenCallback(Callable.From(QueueFree));
     }
 
     public void tick() {
