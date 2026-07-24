@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Godot;
 
@@ -24,14 +23,17 @@ public partial class CountdownManager : Node {
 
     async Task spawn_countdowns() {
         while (true) {
-            await Time.WaitForSeconds(this, config.countdown_spawn_delay_secs);
             spawn_countdown();
+            await Time.WaitForSeconds(this, config.countdown_spawn_delay_secs);
         }
     }
 
     void spawn_countdown() {
         PackedScene scene = countdown_scenes.RandomElement();
         Countdown cd = scene.Instantiate<Countdown>();
+        Vector2 pos = cd.Position;
+        pos.X += 20;
+        cd.Position = pos;
         cd._Initialize(random_result());
         AddChild(cd);
         countdowns.Add(cd);
