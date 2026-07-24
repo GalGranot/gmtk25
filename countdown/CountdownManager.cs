@@ -60,6 +60,7 @@ public partial class CountdownManager : Node {
         if(randi < 3) {
             float rand_mult = Random.float_in_range(0.5f, 5f);
             rand_mult = (float)Math.Round(rand_mult, 1);
+            rand_mult = ((float)Math.Round(rand_mult * 2)) / 2;
             return new CountdownResult.MultScore(rand_mult);
         } else {
             int score = main.score;
