@@ -12,6 +12,8 @@ public partial class Main : Node {
     [Export] CardSlot rcard;
     [Export] CardSlot played;
     [Export] CardSlot discard_slot;
+    
+    [Export] LastPlayed last_played;
 
     CardSlot[] playing_slots;
     /*=============================================================================
@@ -118,9 +120,15 @@ public partial class Main : Node {
             on_card_played?.Invoke(chosen_card);
 
             update_score(score + chosen_card.score);
-            Card old_played = played.eject();
-            await played.take_and_animate_card(chosen_card, config.card_move_time_secs);
-            old_played.QueueFree();
+            Task old_played_task = Task.CompletedTask;
+            if(played.is_occupied) {
+                Card old_played = played.eject();
+                old_played_task = last_played.take_and_animate_card(old_played);
+            }
+            await Task.WhenAll(
+                played.take_and_animate_card(chosen_card, config.card_move_time_secs),
+                old_played_task
+            );
         }
     }
 

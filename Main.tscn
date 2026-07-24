@@ -7,14 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://bm4hmgmnsk8n4" path="res://ui/Hud.tscn" id="4_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://k70ij67yr64k" path="res://ui/QuestionMark.tscn" id="5_fos0i"]
 [ext_resource type="PackedScene" uid="uid://cfb474acgc826" path="res://countdown/CountdownManager.tscn" id="7_lgr22"]
+[ext_resource type="Script" uid="uid://bcto4qak2ckby" path="res://containers/LastPlayed.cs" id="8_trn2v"]
 
-[node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "question_mark_icon", "hud", "countdown_manager")]
+[node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "last_played", "question_mark_icon", "hud", "countdown_manager")]
 script = ExtResource("1_uu6xs")
 deck_slot = NodePath("Deck")
 lcard = NodePath("LeftCard")
 rcard = NodePath("RightCard")
 played = NodePath("Played")
 discard_slot = NodePath("Discard")
+last_played = NodePath("LastPlayed")
 question_mark_icon = NodePath("QuestionMark")
 instructions_scene = ExtResource("2_3dxm6")
 hud = NodePath("Hud")
@@ -43,3 +45,23 @@ position = Vector2(1791.9999, 511.99997)
 scale = Vector2(1, 0.99303913)
 
 [node name="CountdownManager" parent="." unique_id=794948173 instance=ExtResource("7_lgr22")]
+
+[node name="LastPlayed" type="Node" parent="." unique_id=1878351228 node_paths=PackedStringArray("slots", "discard")]
+script = ExtResource("8_trn2v")
+slots = [NodePath("CardSlot"), NodePath("CardSlot2"), NodePath("CardSlot3"), NodePath("CardSlot4"), NodePath("CardSlot5")]
+discard = NodePath("../Discard")
+
+[node name="CardSlot" parent="LastPlayed" unique_id=694686028 instance=ExtResource("2_uu6xs")]
+position = Vector2(1632, 128)
+
+[node name="CardSlot2" parent="LastPlayed" unique_id=460847435 instance=ExtResource("2_uu6xs")]
+position = Vector2(1472, 128)
+
+[node name="CardSlot3" parent="LastPlayed" unique_id=1617738685 instance=ExtResource("2_uu6xs")]
+position = Vector2(1312, 128)
+
+[node name="CardSlot4" parent="LastPlayed" unique_id=144889008 instance=ExtResource("2_uu6xs")]
+position = Vector2(1152, 128)
+
+[node name="CardSlot5" parent="LastPlayed" unique_id=2064280602 instance=ExtResource("2_uu6xs")]
+position = Vector2(992, 128)

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://drykf8cac8ly3"]
+
+[ext_resource type="Texture2D" uid="uid://dd5id6ljv8v8q" path="res://sprites/cardJoker.png" id="1_uws3g"]
+
+[node name="CardTest" type="Node2D" unique_id=1925911201]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1514944457]
+texture = ExtResource("1_uws3g")
