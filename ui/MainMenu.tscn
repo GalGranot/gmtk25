@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bus7h5cs7g6uk"]
 
 [ext_resource type="Script" uid="uid://p51fe12x60r2" path="res://ui/MainMenu.cs" id="1_b00nv"]
+[ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="2_rn8js"]
 
 [node name="MainMenu" type="Control" unique_id=68921408 node_paths=PackedStringArray("quit", "start")]
 layout_mode = 3
@@ -10,6 +11,12 @@ offset_bottom = 40.0
 script = ExtResource("1_b00nv")
 quit = NodePath("VBoxContainer/Quit")
 start = NodePath("VBoxContainer/Start")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=750334826]
+z_index = -1
+position = Vector2(928, 544)
+texture = ExtResource("2_rn8js")
+metadata/_edit_group_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1170514561]
 layout_mode = 1

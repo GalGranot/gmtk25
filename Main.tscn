@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://k70ij67yr64k" path="res://ui/QuestionMark.tscn" id="5_fos0i"]
 [ext_resource type="PackedScene" uid="uid://cfb474acgc826" path="res://countdown/CountdownManager.tscn" id="7_lgr22"]
 [ext_resource type="Script" uid="uid://bcto4qak2ckby" path="res://containers/LastPlayed.cs" id="8_trn2v"]
-[ext_resource type="Texture2D" uid="uid://crcdb6qncdfct" path="res://orig_big.png" id="9_03owx"]
+[ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="9_03owx"]
 
 [node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "last_played", "question_mark_icon", "hud", "countdown_manager")]
 script = ExtResource("1_uu6xs")
@@ -71,3 +71,4 @@ position = Vector2(992, 128)
 z_index = -1
 position = Vector2(928, 544)
 texture = ExtResource("9_03owx")
+metadata/_edit_group_ = true
