@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cfb474acgc826" path="res://countdown/CountdownManager.tscn" id="7_lgr22"]
 [ext_resource type="Script" uid="uid://bcto4qak2ckby" path="res://containers/LastPlayed.cs" id="8_trn2v"]
 [ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="9_03owx"]
+[ext_resource type="AudioStream" uid="uid://bhqbevv6e18r7" path="res://sound/sparkly (sonatina-midi-madness).wav" id="10_wkp8b"]
 
 [node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "last_played", "question_mark_icon", "hud", "countdown_manager")]
 script = ExtResource("1_uu6xs")
@@ -72,3 +73,8 @@ z_index = -1
 position = Vector2(928, 544)
 texture = ExtResource("9_03owx")
 metadata/_edit_group_ = true
+
+[node name="BgMusic" type="AudioStreamPlayer" parent="." unique_id=1941758132]
+stream = ExtResource("10_wkp8b")
+volume_db = -9.0
+autoplay = true

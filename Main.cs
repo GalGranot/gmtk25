@@ -40,6 +40,12 @@ public partial class Main : Node {
     public event Action<CardPlayedInfo> on_card_played;
 
     /*=============================================================================
+    * Sound
+    =============================================================================*/
+    AudioStreamPlayer card_move_sound = new();
+    AudioStreamPlayer shuffle_sound = new();
+
+    /*=============================================================================
     * Misc.
     =============================================================================*/
     [Export] Hud hud;
@@ -69,13 +75,21 @@ public partial class Main : Node {
         question_mark_icon.on_click += on_question_mark_clicked;
         hud._Initialize(this);
 
+        // Sound Initialization
+        card_move_sound.Stream = ResourceLoader.Load<AudioStream>("res://sound/card-take.mp3");
+        shuffle_sound.Stream = ResourceLoader.Load<AudioStream>("res://sound/shuffle.mp3");
+        AddChild(card_move_sound);
+        AddChild(shuffle_sound);
+
         // Game Initialization
         deck = CardUtils.new_deck();
+        shuffle_sound.Play();
         playing_slots = [lcard, rcard];
         init_with_back(deck_slot);
         init_with_back(discard_slot);
         discard_slot.peek().ZIndex = 999;
         played.take_and_animate_card(spawn_card(deck.Pop(), deck_slot.Position)).Forget();
+        card_move_sound.Play();
         last_played.spawn_worker();
 
         main().Forget();
@@ -134,8 +148,10 @@ public partial class Main : Node {
             if(played.is_occupied) {
                 Card old_played = played.eject();
                 old_played_task = last_played.take_and_animate_card(old_played);
+                card_move_sound.Play();
             }
             played.take_and_animate_card(chosen_card, config.card_move_time_secs).Forget();
+            card_move_sound.Play();
             old_played_task.Forget();
             on_card_played?.Invoke(on_card_played_info(chosen_card));
         }
@@ -186,6 +202,7 @@ public partial class Main : Node {
             }
             if (!slot.is_occupied) {
                 try {
+                    card_move_sound.Play();
                     await slot.take_and_animate_card(
                         spawn_card(deck.Pop(), deck_slot.Position),
                         config.deal_time_secs
@@ -221,6 +238,7 @@ public partial class Main : Node {
     * Misc
     =============================================================================*/
     void deck_refill() {
+        shuffle_sound.Play();
         deck = CardUtils.new_deck();
         GD.PrintErr($"Deck empty! maybe do something with it"); //! FIXME: rmv
     }
