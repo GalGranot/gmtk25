@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
+using Godot;
 
 public partial class PlayPokerHand : Countdown, IOnCardPlayed {
     PokerHand hand;
@@ -16,12 +17,9 @@ public partial class PlayPokerHand : Countdown, IOnCardPlayed {
     }
 
     public CountdownResult on_card_played(CardPlayedInfo card_played_info) {
-        if(card_played_info.last_cards_played.Any(card => card is null)) {
-            return new CountdownResult.Running();
-        }
-        if(CardUtils.hand_fits(
-            CardUtils.assign_hand(card_played_info.last_cards_played),
-            hand
+        if (CardUtils.hand_fits(
+            hand,
+            CardUtils.assign_hand(card_played_info.last_cards_played)
         )) {
             return result_on_complete;
         }

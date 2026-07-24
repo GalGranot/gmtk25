@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 public static class CardUtils {
     public static List<CardId> new_deck() {
@@ -20,6 +21,11 @@ public static class CardUtils {
     }
 
     static public bool hand_fits(PokerHand required, PokerHand present) {
+        GD.Print($"required = {required}, present = {present}"); //! FIXME: rmv
+        if (required is PokerHand.None) {
+            return false;
+        }
+
         return required switch {
             PokerHand.Pair => present is PokerHand.Pair or PokerHand.TwoPair or PokerHand.ThreeOfAKind or PokerHand.FullHouse or PokerHand.FourOfAKind,
             PokerHand.TwoPair => present is PokerHand.TwoPair or PokerHand.ThreeOfAKind or PokerHand.FullHouse or PokerHand.FourOfAKind,
@@ -35,19 +41,26 @@ public static class CardUtils {
 
     public static PokerHand assign_hand(List<Card> cards) {
         assert(cards.Count() == 5);
-        bool flush = is_flush(cards);
-        bool straight = is_straight(cards);
-        int[] freqs = count_freqs(cards);
+        bool flush = false;
+        bool straight = false;
+        if(!cards.Any(c => c is null)) {
+            flush = is_flush(cards);
+            straight = is_straight(cards);
+        }
+        List<int> freqs = count_freqs(cards);
+        string msg = $"flush = {flush}, straight = {straight}, freqs = ";
+        foreach(int i in freqs) { msg += $"{i}, "; }
+        GD.Print(msg); //! FIXME: rmv
 
         return (flush, straight, freqs) switch {
             (true, true, _) => PokerHand.StraightFlush,
-            (_, _, [4, 1, _]) => PokerHand.FourOfAKind,
-            (_, _, [3, 2, _]) => PokerHand.FullHouse,
+            (_, _, [4, 1, ..]) => PokerHand.FourOfAKind,
+            (_, _, [3, 2, ..]) => PokerHand.FullHouse,
             (true, _, _) => PokerHand.Flush,
             (_, true, _) => PokerHand.Straight,
-            (_, _, [3, 1, 1, _]) => PokerHand.ThreeOfAKind,
-            (_, _, [2, 2, 1, _]) => PokerHand.TwoPair,
-            (_, _, [2, 1, 1, 1, _]) => PokerHand.Pair,
+            (_, _, [3, ..]) => PokerHand.ThreeOfAKind,
+            (_, _, [2, 2, ..]) => PokerHand.TwoPair,
+            (_, _, [2, ..]) => PokerHand.Pair,
             _ => PokerHand.None,
         };
     }
@@ -71,18 +84,13 @@ public static class CardUtils {
         return true;
     }
 
-    static int[] count_freqs(List<Card> cards) {
-        var ranks = Enum.GetValues(typeof(Rank));
-        int[] freqs = new int[ranks.Length];
-
-        for(int i = 0; i < freqs.Length; i++) { freqs[i] = 0; }
-
-        foreach (Card card in cards) {
-            freqs[(int)card.rank] += 1;
-        }
-        Array.Sort(freqs);
-        Array.Reverse(freqs);
-        return freqs;
+    static List<int> count_freqs(List<Card> cards) {
+        return cards
+            .Where(c => c is not null)
+            .GroupBy(c => c.rank)
+            .Select(g => g.Count())
+            .OrderByDescending(x => x)
+            .ToList();
     }
 }
 

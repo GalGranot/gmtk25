@@ -190,7 +190,7 @@ public partial class Main : Node {
         is_paused = !is_paused;
     }
 
-    CardPlayedInfo on_card_played_info(Card card) => new CardPlayedInfo {
+    public CardPlayedInfo on_card_played_info(Card card) => new CardPlayedInfo {
         card_played = card,
         last_cards_played = last_played.peek(),
     };

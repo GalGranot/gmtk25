@@ -51,7 +51,10 @@ public partial class CountdownManager : Node {
                     seconds: config.default_countdown_lifetime_secs,
                     hand: PokerHand.Pair //! FIXME: Make this skewed towards easier hands
                 );
-                break;
+                countdowns.Add(cd);
+                spawn_ticker(cd).Forget();
+                on_card_played2_for_play_poker_hand(main.on_card_played_info(null), play_poker_hand);
+                return;
 
             default:
                 GD.Print($"{cd.GetType().Name}"); //! FIXME: rmv
@@ -112,8 +115,26 @@ public partial class CountdownManager : Node {
         }
     }
 
+    void on_card_played2_for_play_poker_hand(CardPlayedInfo on_card_played, Countdown cd) {
+            switch (cd) {
+                case IOnCardPlayed cd_on_card_played:
+                    CountdownResult result = cd_on_card_played.on_card_played(on_card_played);
+                    if (result is not CountdownResult.Running) {
+                        on_countdown_finished?.Invoke(result);
+                        int i = countdowns.FindIndex(countdown => countdown == cd);
+                        if(i == -1) { GD.Print($"not found"); } //! FIXME: rmv
+                        GD.PrintErr($"Immediately finishing play poker hand countdown\nWe should later make a delay here"); //! FIXME: rmv
+                        finish_countdown_at(i);
+                        return;
+                    }
+                    break;
+            }
+        }
+
     void finish_countdown_at(int i) {
-        countdowns[i].QueueFree();
-        countdowns.RemoveAt(i);
+        if(i < countdowns.Count && i >= 0) {
+            countdowns[i].QueueFree();
+            countdowns.RemoveAt(i);
+        }
     }
 }
