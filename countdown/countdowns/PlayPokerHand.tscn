@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d2yot1ubc2pgy"]
+
+[ext_resource type="PackedScene" uid="uid://by52ni8lhutva" path="res://countdown/Countdown.tscn" id="1_xdf5c"]
+[ext_resource type="Script" uid="uid://cnu0kl3b5adqv" path="res://countdown/countdowns/PlayPokerHand.cs" id="2_xcs0n"]
+
+[node name="Countdown" unique_id=200806500 instance=ExtResource("1_xdf5c")]
+script = ExtResource("2_xcs0n")

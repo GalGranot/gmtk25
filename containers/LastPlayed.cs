@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
@@ -25,4 +26,6 @@ public partial class LastPlayed : Node {
         await Task.WhenAll(animates);
         discard.eject().QueueFree();
     }
+
+    public List<Card> peek() => slots.Map(slot => slot.is_occupied ? slot.peek() : null);
 }

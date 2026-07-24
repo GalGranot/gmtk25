@@ -16,7 +16,8 @@ public partial class PlayXColouredCards : Countdown, IOnCardPlayed {
         perk_text.Text = $"Play {played_cards}/{required_cards} {colour} cards{result_on_complete.name}";
     }
 
-    public CountdownResult on_card_played(Card card) {
+    public CountdownResult on_card_played(CardPlayedInfo card_played_info) {
+        Card card = card_played_info.card_played;
         if (card.colour == colour) {
             played_cards += 1;
             update_label();

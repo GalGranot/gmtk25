@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Godot;
 
@@ -45,7 +46,15 @@ public partial class CountdownManager : Node {
                 );
                 break;
 
+            case PlayPokerHand play_poker_hand:
+                play_poker_hand._Initialize(
+                    seconds: config.default_countdown_lifetime_secs,
+                    hand: PokerHand.Pair //! FIXME: Make this skewed towards easier hands
+                );
+                break;
+
             default:
+                GD.Print($"{cd.GetType().Name}"); //! FIXME: rmv
                 throw die_throw();
         }
         countdowns.Add(cd);
@@ -63,6 +72,7 @@ public partial class CountdownManager : Node {
             float rand_mult = Random.float_in_range(0.5f, 5f);
             rand_mult = (float)Math.Round(rand_mult, 1);
             rand_mult = ((float)Math.Round(rand_mult * 2)) / 2;
+            rand_mult = Mathf.Max(rand_mult, 1.5f);
             return new CountdownResult.MultScore(rand_mult);
         } else {
             int score = main.score;
@@ -87,12 +97,12 @@ public partial class CountdownManager : Node {
         }
     }
 
-    void on_card_played(Card card) {
+    void on_card_played(CardPlayedInfo on_card_played) {
         for (int i = countdowns.Count - 1; i >= 0; i--) {
             Countdown cd = countdowns[i];
             switch (cd) {
                 case IOnCardPlayed cd_on_card_played:
-                    CountdownResult result = cd_on_card_played.on_card_played(card);
+                    CountdownResult result = cd_on_card_played.on_card_played(on_card_played);
                     if (result is not CountdownResult.Running) {
                         on_countdown_finished?.Invoke(result);
                         finish_countdown_at(i);

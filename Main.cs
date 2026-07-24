@@ -37,7 +37,7 @@ public partial class Main : Node {
     * Events
     =============================================================================*/
     public event Action<int> on_score_change;
-    public event Action<Card> on_card_played;
+    public event Action<CardPlayedInfo> on_card_played;
 
     /*=============================================================================
     * Misc.
@@ -117,7 +117,6 @@ public partial class Main : Node {
             }
             CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
             Card chosen_card = chosen_slot.eject();
-            on_card_played?.Invoke(chosen_card);
 
             update_score(score + chosen_card.score);
             Task old_played_task = Task.CompletedTask;
@@ -129,6 +128,7 @@ public partial class Main : Node {
                 played.take_and_animate_card(chosen_card, config.card_move_time_secs),
                 old_played_task
             );
+            on_card_played?.Invoke(on_card_played_info(chosen_card));
         }
     }
 
@@ -189,4 +189,14 @@ public partial class Main : Node {
         }
         is_paused = !is_paused;
     }
+
+    CardPlayedInfo on_card_played_info(Card card) => new CardPlayedInfo {
+        card_played = card,
+        last_cards_played = last_played.peek(),
+    };
+}
+
+public record CardPlayedInfo {
+    public Card card_played;
+    public List<Card> last_cards_played;
 }

@@ -1,7 +1,7 @@
 using Godot;
 
 public interface IOnCardPlayed {
-    public CountdownResult on_card_played(Card card);
+    public CountdownResult on_card_played(CardPlayedInfo card_played_info);
 }
 
 public abstract record CountdownResult {
