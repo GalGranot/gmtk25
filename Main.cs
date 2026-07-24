@@ -135,7 +135,7 @@ public partial class Main : Node {
     }
 
     void on_countdown_finished(CountdownResult result) {
-        switch(result) {
+        switch (result) {
             case CountdownResult.AddScore(int to_add):
                 update_score(score + to_add);
                 break;

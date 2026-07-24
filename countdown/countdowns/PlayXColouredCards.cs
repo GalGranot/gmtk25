@@ -13,7 +13,7 @@ public partial class PlayXColouredCards : Countdown, IOnCardPlayed {
     }
 
     void update_label() {
-        label.Text = $"Play {played_cards}/{required_cards} {colour} cards{result_on_complete.name}";
+        perk_text.Text = $"Play {played_cards}/{required_cards} {colour} cards{result_on_complete.name}";
     }
 
     public CountdownResult on_card_played(Card card) {

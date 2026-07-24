@@ -4,13 +4,17 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wjli"]
 
-[node name="Countdown" type="Node2D" unique_id=200806500 node_paths=PackedStringArray("label")]
+[node name="Countdown" type="Node2D" unique_id=200806500 node_paths=PackedStringArray("perk_text", "cd_text")]
 script = ExtResource("1_1wjli")
-label = NodePath("Label")
+perk_text = NodePath("PerkText")
+cd_text = NodePath("CountdownText")
 
-[node name="Label" type="Label" parent="." unique_id=489510916]
+[node name="PerkText" type="Label" parent="." unique_id=489510916]
 offset_right = 40.0
 offset_bottom = 23.0
-theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_1wjli")
 text = "SOME COUNTDOWN TEXT"
+
+[node name="CountdownText" type="Label" parent="." unique_id=240185084]
+offset_right = 40.0
+offset_bottom = 23.0

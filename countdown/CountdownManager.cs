@@ -17,7 +17,6 @@ public partial class CountdownManager : Node {
     public void _Initialize(Main main) {
         this.main = main;
         main.on_card_played += on_card_played;
-        tick().Forget();
         spawn_countdowns().Forget();
     }
 
@@ -34,9 +33,8 @@ public partial class CountdownManager : Node {
         Vector2 pos = cd.Position;
         pos.X += 20;
         cd.Position = pos;
-        cd._Initialize(random_result());
+        cd._Initialize(random_result(), config.default_countdown_secs);
         AddChild(cd);
-        countdowns.Add(cd);
 
         switch (cd) {
             case PlayXColouredCards play_x_coloured_cards:
@@ -50,6 +48,8 @@ public partial class CountdownManager : Node {
             default:
                 throw die_throw();
         }
+        countdowns.Add(cd);
+        spawn_ticker(cd).Forget();
     }
 
     //! FIXME: Hardcoded currently:
@@ -59,7 +59,7 @@ public partial class CountdownManager : Node {
     //! FIXME: Make this come from config
     CountdownResult random_result() {
         int randi = Random.int_in_range(10);
-        if(randi < 3) {
+        if (randi < 3) {
             float rand_mult = Random.float_in_range(0.5f, 5f);
             rand_mult = (float)Math.Round(rand_mult, 1);
             rand_mult = ((float)Math.Round(rand_mult * 2)) / 2;
@@ -72,15 +72,14 @@ public partial class CountdownManager : Node {
         }
     }
 
-    async Task tick() {
+    async Task spawn_ticker(Countdown cd) {
         while (true) {
-            await Time.WaitForSeconds(this, 5f);
-            for (int i = countdowns.Count - 1; i >= 0; i--) {
-                Countdown cd = countdowns[i];
-                cd.ticks += 1;
-                if (cd.ticks >= cd.seconds) {
-                    finish_countdown_at(i);
-                }
+            await Time.WaitForSeconds(this, 1f);
+            cd.tick();
+            if (cd.ticks >= cd.seconds) {
+                int i = countdowns.FindIndex(countdown => countdown == cd);
+                finish_countdown_at(i);
+                return;
             }
         }
     }
@@ -91,7 +90,7 @@ public partial class CountdownManager : Node {
             switch (cd) {
                 case IOnCardPlayed cd_on_card_played:
                     CountdownResult result = cd_on_card_played.on_card_played(card);
-                    if(result is not CountdownResult.Running) {
+                    if (result is not CountdownResult.Running) {
                         on_countdown_finished?.Invoke(result);
                         finish_countdown_at(i);
                     }

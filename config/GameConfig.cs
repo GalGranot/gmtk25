@@ -14,6 +14,7 @@ public partial class GameConfig : Resource {
     =============================================================================*/
     [Export] public float countdowns_move_down_speed { get; set; } = 100f;
     [Export] public float countdown_spawn_delay_secs { get; set; } = 4f;
+    [Export] public int default_countdown_secs { get; set; } = 5;
 
     /*=============================================================================
     * Gameplay
