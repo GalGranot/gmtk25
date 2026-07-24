@@ -8,6 +8,8 @@ public partial class CountdownManager : Node {
     List<Countdown> countdowns = new();
     GameConfig config;
     [Export] PackedScene[] countdown_scenes;
+    [Export] AudioStreamPlayer explosion;
+    [Export] AudioStreamPlayer success;
     public event Action<CountdownResult> on_countdown_finished;
 
     public override void _Ready() {
@@ -131,6 +133,11 @@ public partial class CountdownManager : Node {
         }
 
     void finish_countdown_at(int i, bool is_successful) {
+        if(is_successful) {
+            success.Play(0.5f);
+        } else {
+            explosion.Play();
+        }
         if(i < countdowns.Count && i >= 0) {
             countdowns[i].kill_countdown(is_successful).Forget();
             countdowns.RemoveAt(i);

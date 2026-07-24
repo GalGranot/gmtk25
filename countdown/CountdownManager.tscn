@@ -3,7 +3,18 @@
 [ext_resource type="Script" uid="uid://bmx7il5uxxxam" path="res://countdown/CountdownManager.cs" id="1_e22gp"]
 [ext_resource type="PackedScene" uid="uid://dfo3coexdd5wu" path="res://countdown/countdowns/PlayXColouredCards.tscn" id="2_anuh0"]
 [ext_resource type="PackedScene" uid="uid://d2yot1ubc2pgy" path="res://countdown/countdowns/PlayPokerHand.tscn" id="3_krluv"]
+[ext_resource type="AudioStream" uid="uid://bjnu48drmo5kb" path="res://sound/explosion.mp3" id="4_c73jl"]
+[ext_resource type="AudioStream" uid="uid://da22mqhws1gky" path="res://sound/success.mp3" id="5_24ec6"]
 
-[node name="CountdownManager" type="Node" unique_id=794948173]
+[node name="CountdownManager" type="Node" unique_id=794948173 node_paths=PackedStringArray("explosion", "success")]
 script = ExtResource("1_e22gp")
 countdown_scenes = Array[PackedScene]([ExtResource("2_anuh0"), ExtResource("3_krluv")])
+explosion = NodePath("explosion")
+success = NodePath("success")
+
+[node name="explosion" type="AudioStreamPlayer" parent="." unique_id=317054149]
+stream = ExtResource("4_c73jl")
+volume_db = -6.0
+
+[node name="success" type="AudioStreamPlayer" parent="." unique_id=1285095194]
+stream = ExtResource("5_24ec6")
