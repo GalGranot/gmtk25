@@ -76,14 +76,16 @@ public partial class Main : Node {
         init_with_back(discard_slot);
         discard_slot.peek().ZIndex = 999;
         played.take_and_animate_card(spawn_card(deck.Pop(), deck_slot.Position)).Forget();
+        last_played.spawn_worker();
 
         main().Forget();
     }
 
     public override void _Process(double delta) {
-        if (Input.IsActionPressed(config.move_left)) {
+        if (Input.IsActionJustPressed(config.move_left)) {
             choose_playing_card_tcs.TrySetResult(lcard);
-        } else if (Input.IsActionPressed(config.move_right)) {
+        }
+        if (Input.IsActionJustPressed(config.move_right)) {
             choose_playing_card_tcs.TrySetResult(rcard);
         }
     }
@@ -103,18 +105,18 @@ public partial class Main : Node {
     async Task main() {
         while (true) {
             choose_playing_card_tcs = new();
-            await deal_playing_cards();
+            deal_playing_cards().Forget();
             Task card_choice = choose_playing_card_tcs.Task;
             Task choice_window = Time.WaitForSeconds(this, config.choice_window_time_secs);
 
             Task winner = await Task.WhenAny(card_choice, choice_window);
             if (winner == choice_window) {
                 GD.Print("Too slow!");
-                //! FIXME: Accum fn?
                 update_score(score - (playing_slots[0].peek().score + playing_slots[1].peek().score));
                 await Task.WhenAll(playing_slots.Map(s => discard_card(s.eject())));
                 continue;
             }
+            // Player made selection within window
             CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
             Card chosen_card = chosen_slot.eject();
 
@@ -124,10 +126,12 @@ public partial class Main : Node {
                 Card old_played = played.eject();
                 old_played_task = last_played.take_and_animate_card(old_played);
             }
-            await Task.WhenAll(
-                played.take_and_animate_card(chosen_card, config.card_move_time_secs),
-                old_played_task
-            );
+            played.take_and_animate_card(chosen_card, config.card_move_time_secs).Forget();
+            old_played_task.Forget();
+            // await Task.WhenAll(
+            //     played.take_and_animate_card(chosen_card, config.card_move_time_secs),
+            //     old_played_task
+            // );
             on_card_played?.Invoke(on_card_played_info(chosen_card));
         }
     }
