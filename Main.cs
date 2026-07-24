@@ -123,7 +123,6 @@ public partial class Main : Node {
             Task winner = await Task.WhenAny(card_choice, choice_window);
             if (winner == choice_window) {
                 GD.Print("Too slow!");
-                update_score(score - (playing_slots[0].peek().score + playing_slots[1].peek().score));
                 await Task.WhenAll(playing_slots.Map(s => discard_card(s.eject())));
                 continue;
             }
@@ -131,7 +130,6 @@ public partial class Main : Node {
             CardSlot chosen_slot = choose_playing_card_tcs.Task.Result;
             Card chosen_card = chosen_slot.eject();
 
-            update_score(score + chosen_card.score);
             Task old_played_task = Task.CompletedTask;
             if(played.is_occupied) {
                 Card old_played = played.eject();
@@ -139,10 +137,6 @@ public partial class Main : Node {
             }
             played.take_and_animate_card(chosen_card, config.card_move_time_secs).Forget();
             old_played_task.Forget();
-            // await Task.WhenAll(
-            //     played.take_and_animate_card(chosen_card, config.card_move_time_secs),
-            //     old_played_task
-            // );
             on_card_played?.Invoke(on_card_played_info(chosen_card));
         }
     }

@@ -11,11 +11,8 @@ public partial class Countdown : Node2D {
 
     GameConfig config;
 
-    public override void _Ready() {
-        config = GD.Load<GameConfig>("res://config/GameConfig.tres");
-    }
-
     public void _Initialize(CountdownResult result, int seconds) {
+        config = GD.Load<GameConfig>("res://config/GameConfig.tres");
         this.seconds = seconds;
         this.result_on_complete = result;
 
@@ -33,7 +30,7 @@ public partial class Countdown : Node2D {
         prettify_label(cd_text);
 
         Tween color_modulate = CreateTween();
-        color_modulate.TweenProperty(this, "modulate", Colors.Red, 5f);
+        color_modulate.TweenProperty(this, "modulate", Colors.Red, config.default_countdown_lifetime_secs);
     }
 
     void prettify_label(Label label) {
