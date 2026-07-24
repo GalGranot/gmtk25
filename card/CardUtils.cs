@@ -92,6 +92,21 @@ public static class CardUtils {
             .OrderByDescending(x => x)
             .ToList();
     }
+
+    public static PokerHand weighted_rand_poker_hand() {
+        int randi = Random.int_in_range(100);
+        return randi switch {
+            < 30 => PokerHand.Pair,
+            >= 30 and < 50 => PokerHand.TwoPair,
+            >= 50 and < 60 => PokerHand.ThreeOfAKind,
+            >= 60 and < 70 => PokerHand.Straight,
+            >= 70 and < 80 => PokerHand.Flush,
+            >= 80 and < 90 => PokerHand.FullHouse,
+            >= 0 and < 95 => PokerHand.FourOfAKind,
+            >= 95 and < 100 => PokerHand.StraightFlush,
+            _ => throw die_throw(),
+        };
+    }
 }
 
 public enum PokerHand {

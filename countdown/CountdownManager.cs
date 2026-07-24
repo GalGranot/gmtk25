@@ -48,7 +48,7 @@ public partial class CountdownManager : Node {
             case PlayPokerHand play_poker_hand:
                 play_poker_hand._Initialize(
                     seconds: config.default_countdown_lifetime_secs,
-                    hand: PokerHand.Pair //! FIXME: Make this skewed towards easier hands
+                    hand: CardUtils.weighted_rand_poker_hand() //! FIXME: Make this skewed towards easier hands
                 );
                 countdowns.Add(cd);
                 spawn_ticker(cd).Forget();
