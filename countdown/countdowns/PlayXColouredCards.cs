@@ -22,6 +22,7 @@ public partial class PlayXColouredCards : Countdown, IOnCardPlayed {
             played_cards += 1;
             update_label();
             if (played_cards >= required_cards) {
+                result_on_complete.success = true;
                 return result_on_complete;
             }
         }

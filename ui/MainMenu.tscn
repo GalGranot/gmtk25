@@ -68,9 +68,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_8v85u")
 theme_override_font_sizes/font_size = 60
-text = "Play card: →,←
-Change card rank: ↑,↓
-Change card suit: with spacebar
+text = "Play card: →←
+Change card rank: ↑↓
+Change card suit: spacebar
 Quit to menu: escape
 
 Complete countdowns on time to score!"

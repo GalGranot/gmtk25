@@ -20,6 +20,7 @@ public partial class PlayFaceCards : Countdown, IOnCardPlayed {
 			played += 1;
 			update_label();
 			if(played >= required) {
+				result_on_complete.success = true;
 				return result_on_complete;
 			}
 		}
