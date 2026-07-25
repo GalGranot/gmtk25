@@ -25,7 +25,7 @@ public partial class CountdownManager : Node {
 
     async Task spawn_difficulty_spiker() {
         while(true) {
-            await Time.WaitForSeconds(this, 10f);
+            await Time.WaitForSeconds(this, 30f);
             config.play_x_coloured_cards_required += 3;
         }
     }
