@@ -20,6 +20,14 @@ public partial class CountdownManager : Node {
         this.main = main;
         main.on_card_played += on_card_played;
         spawn_countdowns().Forget();
+        spawn_difficulty_spiker().Forget();
+    }
+
+    async Task spawn_difficulty_spiker() {
+        while(true) {
+            await Time.WaitForSeconds(this, 10f);
+            config.play_x_coloured_cards_required += 3;
+        }
     }
 
     async Task spawn_countdowns() {
