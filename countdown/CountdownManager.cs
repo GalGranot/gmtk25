@@ -112,17 +112,19 @@ public partial class CountdownManager : Node {
                 return;
             }
             cd.tick();
-            bool success = false;
-            if (cd.ticks >= cd.seconds) {
-                if(cd is IOnCountdownExpired on_cd_expired) {
-                    CountdownResult result = on_cd_expired.on_countdown_expired();
-                    on_countdown_finished?.Invoke(result);
-                    success = true;
-                }
-                int i = countdowns.FindIndex(countdown => countdown == cd);
-                finish_countdown_at(i, success);
-                return;
+            if(cd.ticks < cd.seconds) {
+                continue;
             }
+            bool success = false;
+            CountdownResult result = cd.result_on_complete;
+            if(cd is IOnCountdownExpired on_cd_expired) {
+                result = on_cd_expired.on_countdown_expired();
+                success = true;
+            }
+            on_countdown_finished?.Invoke(result);
+            int i = countdowns.FindIndex(countdown => countdown == cd);
+            finish_countdown_at(i, success);
+            return;
         }
     }
 

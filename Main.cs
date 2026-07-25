@@ -182,9 +182,14 @@ public partial class Main : Node {
                 break;
             case CountdownResult.MultScore(_, float mult_score):
                 if(!success) { mult_score = 1 / mult_score; }
-                update_score((int)(score * mult_score));
+                if(score < 10) {
+                    update_score(100);
+                } else {
+                    update_score((int)(score * mult_score));
+                }
                 break;
         }
+        hud.vibrate_score(success).Forget();
     }
 
     /*=============================================================================
