@@ -21,6 +21,7 @@ public partial class GameConfig : Resource {
     =============================================================================*/
     [Export] public int play_x_coloured_cards_required { get; set; } = 3;
     [Export] public int default_countdown_lifetime_secs { get; set; } = 5;
+    [Export] public int short_countdown_lifetime_secs { get; set; } = 3;
     [Export] public int round_len_secs { get; set; } = 120;
 
     /*=============================================================================

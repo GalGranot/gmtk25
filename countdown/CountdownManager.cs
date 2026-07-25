@@ -43,7 +43,8 @@ public partial class CountdownManager : Node {
         Vector2 pos = cd.Position;
         pos.X += 20;
         cd.Position = pos;
-        cd._Initialize(random_result(), config.default_countdown_secs);
+        int seconds = cd is DontPlaySuit ? config.short_countdown_lifetime_secs : config.default_countdown_lifetime_secs;
+        cd._Initialize(random_result(), seconds);
         AddChild(cd);
 
         switch (cd) {
@@ -64,9 +65,15 @@ public partial class CountdownManager : Node {
                 spawn_ticker(cd).Forget();
                 on_card_played2_for_play_poker_hand(main.on_card_played_info(null), play_poker_hand);
                 return;
+            
+            case DontPlaySuit dont_play_suit:
+                dont_play_suit._Initialize(
+                    seconds: config.short_countdown_lifetime_secs,
+                    suit: EnumUtils.random_enum<Suit>()
+                );
+                break;
 
             default:
-                GD.Print($"{cd.GetType().Name}"); //! FIXME: rmv
                 throw die_throw();
         }
         countdowns.Add(cd);
@@ -101,9 +108,17 @@ public partial class CountdownManager : Node {
                 return;
             }
             cd.tick();
+            bool success = false;
             if (cd.ticks >= cd.seconds) {
+                if(cd is IOnCountdownExpired on_cd_expired) {
+                    CountdownResult result = on_cd_expired.on_countdown_expired();
+                    if (result is not CountdownResult.Failed) {
+                        on_countdown_finished?.Invoke(result);
+                        success = true;
+                    }
+                }
                 int i = countdowns.FindIndex(countdown => countdown == cd);
-                finish_countdown_at(i, false);
+                finish_countdown_at(i, success);
                 return;
             }
         }
