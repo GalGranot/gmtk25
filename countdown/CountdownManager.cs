@@ -151,7 +151,6 @@ public partial class CountdownManager : Node {
                         on_countdown_finished?.Invoke(result);
                         int i = countdowns.FindIndex(countdown => countdown == cd);
                         if(i == -1) { GD.Print($"not found"); } //! FIXME: rmv
-                        GD.PrintErr($"Immediately finishing play poker hand countdown\nWe should later make a delay here"); //! FIXME: rmv
                         finish_countdown_at(i, true);
                         return;
                     }
