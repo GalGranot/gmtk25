@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bm4hmgmnsk8n4"]
 
 [ext_resource type="Script" uid="uid://vtx4vw5ojbta" path="res://ui/Hud.cs" id="1_jun1y"]
+[ext_resource type="FontFile" uid="uid://t0607acpieom" path="res://sound/fonts/audex/Audex-Regular.ttf" id="2_qi0j7"]
 
 [node name="Hud" type="CanvasLayer" unique_id=1977890049 node_paths=PackedStringArray("score_text")]
 script = ExtResource("1_jun1y")
@@ -19,5 +20,6 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_qi0j7")
 theme_override_font_sizes/font_size = 80
 text = "SCORE: 0"

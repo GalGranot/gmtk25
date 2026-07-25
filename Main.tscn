@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://by4gdyq68eos6" path="res://ui/SineMovement.cs" id="10_5vvyt"]
 [ext_resource type="AudioStream" uid="uid://bhqbevv6e18r7" path="res://sound/sparkly (sonatina-midi-madness).wav" id="10_wkp8b"]
 [ext_resource type="Script" uid="uid://dttwhlv3s71lw" path="res://game/RoundTimer.cs" id="11_20pc6"]
+[ext_resource type="FontFile" uid="uid://t0607acpieom" path="res://sound/fonts/audex/Audex-Regular.ttf" id="13_c6i3y"]
 
 [node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "last_played", "question_mark_icon", "round_timer", "hud", "countdown_manager")]
 script = ExtResource("1_uu6xs")
@@ -93,6 +94,7 @@ offset_left = 1216.0
 offset_top = 960.0
 offset_right = 1421.0
 offset_bottom = 1070.0
+theme_override_fonts/font = ExtResource("13_c6i3y")
 theme_override_font_sizes/font_size = 80
 text = "02:00"
 

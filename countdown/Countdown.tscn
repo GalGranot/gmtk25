@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://by52ni8lhutva"]
 
 [ext_resource type="Script" uid="uid://bvmrw5ndeeqpu" path="res://countdown/Countdown.cs" id="1_1wjli"]
+[ext_resource type="FontFile" uid="uid://t0607acpieom" path="res://sound/fonts/audex/Audex-Regular.ttf" id="2_3jhu6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wjli"]
 
@@ -12,9 +13,11 @@ cd_text = NodePath("CountdownText")
 [node name="PerkText" type="Label" parent="." unique_id=489510916]
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_3jhu6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1wjli")
 text = "SOME COUNTDOWN TEXT"
 
 [node name="CountdownText" type="Label" parent="." unique_id=240185084]
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_3jhu6")
