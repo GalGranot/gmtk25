@@ -7,7 +7,7 @@ public partial class DontPlaySuit : Countdown, IOnCardPlayed, IOnCountdownExpire
 	}
 
 	void update_label() {
-		perk_text.Text = $"Don't play {suit} cards";
+		perk_text.Text = $"Don't play {suit} cards{result_on_complete.name}";
 	}
 
     public CountdownResult on_card_played(CardPlayedInfo card_played_info) {
