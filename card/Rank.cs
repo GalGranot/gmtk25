@@ -28,4 +28,9 @@ public static class RankExt {
         }
         return Rank.King;
     }
+
+    public static bool is_face_card(this Rank rank) => rank switch {
+        Rank.Jack or Rank.Queen or Rank.King => true,
+        _ => false,
+    };
 }

@@ -26,7 +26,7 @@ public partial class CountdownManager : Node {
     async Task spawn_difficulty_spiker() {
         while(true) {
             await Time.WaitForSeconds(this, 30f);
-            config.play_x_coloured_cards_required += 3;
+            config.play_x_cards_required += 3;
         }
     }
 
@@ -51,7 +51,7 @@ public partial class CountdownManager : Node {
             case PlayXColouredCards play_x_coloured_cards:
                 play_x_coloured_cards._Initialize(
                     seconds: config.default_countdown_lifetime_secs,
-                    required_cards: config.play_x_coloured_cards_required,
+                    required_cards: config.play_x_cards_required,
                     colour: EnumUtils.random_enum<CardColour>()
                 );
                 break;
@@ -71,6 +71,10 @@ public partial class CountdownManager : Node {
                     seconds: config.short_countdown_lifetime_secs,
                     suit: EnumUtils.random_enum<Suit>()
                 );
+                break;
+
+            case PlayFaceCards play_face_cards:
+                play_face_cards._Initialize(config.play_x_cards_required);
                 break;
 
             default:
