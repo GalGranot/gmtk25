@@ -219,7 +219,9 @@ public partial class Main : Node {
     }
 
     void on_round_end() {
-        GD.Print($"Round end"); //! FIXME: rmv
+        var highscores = new ConfigFile();
+        highscores.SetValue("high scores", "player name", score);
+        highscores.Save("user://high_scores.cfg");
     }
 
     /*=============================================================================
