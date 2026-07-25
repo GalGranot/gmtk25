@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://dttwhlv3s71lw" path="res://game/RoundTimer.cs" id="11_20pc6"]
 [ext_resource type="FontFile" uid="uid://t0607acpieom" path="res://sound/fonts/audex/Audex-Regular.ttf" id="13_c6i3y"]
 
-[node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "last_played", "question_mark_icon", "round_timer", "hud", "countdown_manager")]
+[node name="Main" type="Node" unique_id=146729607 node_paths=PackedStringArray("deck_slot", "lcard", "rcard", "played", "discard_slot", "last_played", "round_timer", "hud", "countdown_manager")]
 script = ExtResource("1_uu6xs")
 deck_slot = NodePath("Deck")
 lcard = NodePath("LeftCard")
@@ -21,7 +21,6 @@ rcard = NodePath("RightCard")
 played = NodePath("Played")
 discard_slot = NodePath("Discard")
 last_played = NodePath("LastPlayed")
-question_mark_icon = NodePath("")
 instructions_scene = ExtResource("2_3dxm6")
 round_timer = NodePath("RoundTimer")
 hud = NodePath("Hud")
