@@ -31,4 +31,5 @@ public partial class GameConfig : Resource {
     [Export] public string choose_up = "choose_up";
     [Export] public string choose_down = "choose_down";
     [Export] public string spacebar = "spacebar";
+    [Export] public string escape = "goto_main_menu";
 }

@@ -98,6 +98,9 @@ public partial class Main : Node {
     }
 
     public override void _Process(double delta) {
+        if(Input.IsActionJustPressed(config.escape)) {
+            goto_main_menu();
+        }
         if (Input.IsActionJustPressed(config.move_left)) {
             choose_playing_card_tcs.TrySetResult(lcard);
         }
@@ -219,13 +222,23 @@ public partial class Main : Node {
 
     void on_round_end() {
         Singleton.score = score;
-        FadeToBlack.I.on_finished_fading += on_finished_fading;
+        FadeToBlack.I.on_finished_fading += on_finished_fading_round_end;
         FadeToBlack.I.transition();
     }
 
-    void on_finished_fading() {
-        FadeToBlack.I.on_finished_fading -= on_finished_fading;
+    void on_finished_fading_round_end() {
+        FadeToBlack.I.on_finished_fading -= on_finished_fading_round_end;
         GetTree().ChangeSceneToFile("res://ui/RoundOverScreen.tscn");
+    }
+
+    void goto_main_menu() {
+        FadeToBlack.I.on_finished_fading += on_finished_fading_goto_main_menu;
+        FadeToBlack.I.transition();
+    }
+
+    void on_finished_fading_goto_main_menu() {
+        FadeToBlack.I.on_finished_fading -= on_finished_fading_goto_main_menu;
+        GetTree().ChangeSceneToFile("res://ui/MainMenu.tscn");
     }
 
     /*=============================================================================

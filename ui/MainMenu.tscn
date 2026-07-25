@@ -51,7 +51,7 @@ offset_left = 109.0
 offset_top = 40.0
 offset_right = 1806.0
 offset_bottom = 550.0
-theme_override_constants/separation = 144
+theme_override_constants/separation = 93
 
 [node name="TitleCard" type="Label" parent="VBoxContainer2" unique_id=1998724471]
 layout_mode = 2
@@ -71,6 +71,7 @@ theme_override_font_sizes/font_size = 60
 text = "Play card: →,←
 Change card rank: ↑,↓
 Change card suit: with spacebar
+Quit to menu: escape
 
 Complete countdowns on time to score!"
 horizontal_alignment = 1
