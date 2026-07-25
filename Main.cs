@@ -169,16 +169,19 @@ public partial class Main : Node {
     }
 
     void update_score(int new_score) {
-        score = new_score;
+        score = Math.Max(0, new_score);
         on_score_change?.Invoke(score);
     }
 
     void on_countdown_finished(CountdownResult result) {
+        bool success = result.success;
         switch (result) {
-            case CountdownResult.AddScore(int to_add):
+            case CountdownResult.AddScore(_, int to_add):
+                to_add *= success ? 1 : -1;
                 update_score(score + to_add);
                 break;
-            case CountdownResult.MultScore(float mult_score):
+            case CountdownResult.MultScore(_, float mult_score):
+                if(!success) { mult_score = 1 / mult_score; }
                 update_score((int)(score * mult_score));
                 break;
         }

@@ -12,12 +12,14 @@ public partial class DontPlaySuit : Countdown, IOnCardPlayed, IOnCountdownExpire
 
     public CountdownResult on_card_played(CardPlayedInfo card_played_info) {
         if(suit == card_played_info.card_played.suit) {
-			return new CountdownResult.Failed();
+			result_on_complete.success = false;
+			return result_on_complete;
 		}
 		return new CountdownResult.Running();
     }
 
     public CountdownResult on_countdown_expired() {
+		result_on_complete.success = true;
         return result_on_complete;
     }
 }

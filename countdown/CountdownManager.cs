@@ -96,12 +96,12 @@ public partial class CountdownManager : Node {
             rand_mult = (float)Math.Round(rand_mult, 1);
             rand_mult = ((float)Math.Round(rand_mult * 2)) / 2;
             rand_mult = Mathf.Max(rand_mult, 1.5f);
-            return new CountdownResult.MultScore(rand_mult);
+            return new CountdownResult.MultScore(false, rand_mult);
         } else {
             int score = main.score;
             int to_add = score < 20 ? score + 10 : Random.int_in_range(-(int)(score * 0.1f), score * 2);
             to_add = Mathf.Max(to_add, 10);
-            return new CountdownResult.AddScore(to_add);
+            return new CountdownResult.AddScore(false, to_add);
         }
     }
 
@@ -116,10 +116,8 @@ public partial class CountdownManager : Node {
             if (cd.ticks >= cd.seconds) {
                 if(cd is IOnCountdownExpired on_cd_expired) {
                     CountdownResult result = on_cd_expired.on_countdown_expired();
-                    if (result is not CountdownResult.Failed) {
-                        on_countdown_finished?.Invoke(result);
-                        success = true;
-                    }
+                    on_countdown_finished?.Invoke(result);
+                    success = true;
                 }
                 int i = countdowns.FindIndex(countdown => countdown == cd);
                 finish_countdown_at(i, success);
