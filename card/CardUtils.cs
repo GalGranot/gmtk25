@@ -40,17 +40,13 @@ public static class CardUtils {
     }
 
     public static PokerHand assign_hand(List<Card> cards) {
-        assert(cards.Count() == 5);
         bool flush = false;
         bool straight = false;
-        if(!cards.Any(c => c is null)) {
+        if(cards.Count() == 5 && !cards.Any(c => c is null)) {
             flush = is_flush(cards);
             straight = is_straight(cards);
         }
         List<int> freqs = count_freqs(cards);
-        string msg = $"flush = {flush}, straight = {straight}, freqs = ";
-        foreach(int i in freqs) { msg += $"{i}, "; }
-        GD.Print(msg); //! FIXME: rmv
 
         return (flush, straight, freqs) switch {
             (true, true, _) => PokerHand.StraightFlush,

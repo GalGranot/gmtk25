@@ -150,15 +150,16 @@ public partial class Main : Node {
             Card chosen_card = chosen_slot.eject();
 
             Task old_played_task = Task.CompletedTask;
+            Card old_played = null;
             if(played.is_occupied) {
-                Card old_played = played.eject();
+                old_played = played.eject();
                 old_played_task = last_played.take_and_animate_card(old_played);
                 card_move_sound.Play();
             }
             played.take_and_animate_card(chosen_card, config.card_move_time_secs).Forget();
             card_move_sound.Play();
             old_played_task.Forget();
-            on_card_played?.Invoke(on_card_played_info(chosen_card));
+            on_card_played?.Invoke(on_card_played_info(old_played));
         }
     }
 
