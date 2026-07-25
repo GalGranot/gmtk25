@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://28ekwlbq0yn0"]
+
+[ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="1_bgrme"]
+[ext_resource type="Script" uid="uid://by4gdyq68eos6" path="res://ui/SineMovement.cs" id="2_w83cp"]
+
+[node name="Round Over Screen" type="Control" unique_id=894643340]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Bg" type="Sprite2D" parent="." unique_id=1479482202]
+z_index = -1
+position = Vector2(928, 544)
+texture = ExtResource("1_bgrme")
+script = ExtResource("2_w83cp")
+metadata/_edit_group_ = true

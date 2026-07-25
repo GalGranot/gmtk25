@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cfb474acgc826" path="res://countdown/CountdownManager.tscn" id="7_lgr22"]
 [ext_resource type="Script" uid="uid://bcto4qak2ckby" path="res://containers/LastPlayed.cs" id="8_trn2v"]
 [ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="9_03owx"]
+[ext_resource type="Script" uid="uid://by4gdyq68eos6" path="res://ui/SineMovement.cs" id="10_5vvyt"]
 [ext_resource type="AudioStream" uid="uid://bhqbevv6e18r7" path="res://sound/sparkly (sonatina-midi-madness).wav" id="10_wkp8b"]
 [ext_resource type="Script" uid="uid://dttwhlv3s71lw" path="res://game/RoundTimer.cs" id="11_20pc6"]
 
@@ -70,10 +71,11 @@ position = Vector2(1152, 128)
 [node name="CardSlot5" parent="LastPlayed" unique_id=2064280602 instance=ExtResource("2_uu6xs")]
 position = Vector2(992, 128)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1226629500]
+[node name="Bg" type="Sprite2D" parent="." unique_id=1226629500]
 z_index = -1
 position = Vector2(928, 544)
 texture = ExtResource("9_03owx")
+script = ExtResource("10_5vvyt")
 metadata/_edit_group_ = true
 
 [node name="BgMusic" type="AudioStreamPlayer" parent="." unique_id=1941758132]
