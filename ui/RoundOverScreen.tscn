@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://28ekwlbq0yn0"]
 
 [ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="1_bgrme"]
+[ext_resource type="Script" uid="uid://b7xj8tocimats" path="res://ui/RoundOverScreen.cs" id="1_kynir"]
 [ext_resource type="Script" uid="uid://by4gdyq68eos6" path="res://ui/SineMovement.cs" id="2_w83cp"]
+[ext_resource type="FontFile" uid="uid://t0607acpieom" path="res://sound/fonts/audex/Audex-Regular.ttf" id="4_ea6yi"]
 
-[node name="Round Over Screen" type="Control" unique_id=894643340]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Round Over Screen" type="Node" unique_id=1826045002 node_paths=PackedStringArray("label", "btn")]
+script = ExtResource("1_kynir")
+label = NodePath("Control/VBoxContainer/Label")
+btn = NodePath("Control/VBoxContainer/Restart")
 
 [node name="Bg" type="Sprite2D" parent="." unique_id=1479482202]
 z_index = -1
@@ -15,3 +16,39 @@ position = Vector2(928, 544)
 texture = ExtResource("1_bgrme")
 script = ExtResource("2_w83cp")
 metadata/_edit_group_ = true
+
+[node name="Control" type="Control" parent="." unique_id=1516381903]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=824653154]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.5
+offset_top = -154.5
+offset_right = 232.5
+offset_bottom = 154.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 185
+
+[node name="Label" type="Label" parent="Control/VBoxContainer" unique_id=983831924]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ea6yi")
+theme_override_font_sizes/font_size = 80
+text = "Round over!
+Score: "
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="Control/VBoxContainer" unique_id=970381615]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Restart?"

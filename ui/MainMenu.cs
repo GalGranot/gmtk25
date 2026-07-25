@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MainMenu : Control {
+public partial class MainMenu : Node {
 	[Export] Button quit;
 	[Export] Button start;
 	public override void _Ready() {

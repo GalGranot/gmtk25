@@ -8,3 +8,4 @@ countdowns_move_down_speed = 50.0
 countdown_spawn_delay_secs = 2.0
 default_countdown_secs = 10
 default_countdown_lifetime_secs = 10
+round_len_secs = 5

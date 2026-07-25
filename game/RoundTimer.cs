@@ -22,7 +22,10 @@ public partial class RoundTimer : Node {
     void on_timer_timeout() {
         secs_remaining -= 1;
         update_display();
-        if(secs_remaining <= 0) { on_round_end?.Invoke(); } 
+        if(secs_remaining <= 0) { 
+            on_round_end?.Invoke(); 
+            timer.Stop();
+        } 
     }
 
     void update_display() {

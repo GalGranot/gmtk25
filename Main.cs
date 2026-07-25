@@ -52,6 +52,7 @@ public partial class Main : Node {
     [Export] Hud hud;
     [Export] PackedScene card_scene;
     [Export] CountdownManager countdown_manager;
+    [Export] PackedScene round_over_screen;
 
     GameConfig config;
     bool is_paused = false;
@@ -219,9 +220,8 @@ public partial class Main : Node {
     }
 
     void on_round_end() {
-        var highscores = new ConfigFile();
-        highscores.SetValue("high scores", "player name", score);
-        highscores.Save("user://high_scores.cfg");
+        Singleton.score = score;
+        GetTree().ChangeSceneToPacked(round_over_screen);
     }
 
     /*=============================================================================
