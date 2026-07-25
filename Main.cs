@@ -29,7 +29,6 @@ public partial class Main : Node {
     /*=============================================================================
     * UI
     =============================================================================*/
-    [Export] QuestionMark question_mark_icon;
     [Export] PackedScene instructions_scene;
     [Export] RoundTimer round_timer;
     CanvasLayer instructions;
@@ -74,7 +73,6 @@ public partial class Main : Node {
         countdown_manager.on_countdown_finished += on_countdown_finished;
 
         // UI Initialization
-        question_mark_icon.on_click += on_question_mark_clicked;
         hud._Initialize(this);
         round_timer._Initialize(config.round_len_secs);
         round_timer.on_round_end += on_round_end;
@@ -233,17 +231,6 @@ public partial class Main : Node {
     /*=============================================================================
     * UI
     =============================================================================*/
-    void on_question_mark_clicked() {
-        if (is_paused) {
-            instructions.Hide();
-            GetTree().Paused = false;
-        } else {
-            GetTree().Paused = true;
-            instructions.Show();
-        }
-        is_paused = !is_paused;
-    }
-
     public CardPlayedInfo on_card_played_info(Card card) => new CardPlayedInfo {
         card_played = card,
         last_cards_played = last_played.peek(),

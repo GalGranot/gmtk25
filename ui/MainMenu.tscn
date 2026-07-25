@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://p51fe12x60r2" path="res://ui/MainMenu.cs" id="1_b00nv"]
 [ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="2_rn8js"]
 [ext_resource type="Script" uid="uid://by4gdyq68eos6" path="res://ui/SineMovement.cs" id="3_nmrkx"]
+[ext_resource type="FontFile" uid="uid://t0607acpieom" path="res://sound/fonts/audex/Audex-Regular.ttf" id="4_8v85u"]
 
 [node name="MainMenu" type="Control" unique_id=68921408 node_paths=PackedStringArray("quit", "start")]
 layout_mode = 3
@@ -26,23 +27,52 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 172.0
-offset_top = 32.0
+offset_top = 747.0
 offset_right = 1668.0
-offset_bottom = 912.0
+offset_bottom = 1627.0
 grow_horizontal = 2
-theme_override_constants/separation = 300
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1998724471]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Welcome to Countdown Madness! (working title)"
+theme_override_constants/separation = 72
 
 [node name="Start" type="Button" parent="VBoxContainer" unique_id=1499540874]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_8v85u")
 theme_override_font_sizes/font_size = 64
 text = "Start Game"
 
 [node name="Quit" type="Button" parent="VBoxContainer" unique_id=2095366125]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_8v85u")
 theme_override_font_sizes/font_size = 64
 text = "Quit Game"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1026047711]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 40.0
+offset_right = 1806.0
+offset_bottom = 550.0
+theme_override_constants/separation = 144
+
+[node name="TitleCard" type="Label" parent="VBoxContainer2" unique_id=1998724471]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_8v85u")
+theme_override_font_sizes/font_size = 139
+text = "COUNTDOWN CARDTOWN"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Instructions" type="Label" parent="VBoxContainer2" unique_id=1263002804]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_8v85u")
+theme_override_font_sizes/font_size = 60
+text = "Play card: →,←
+Change card rank: ↑,↓
+Change card suit: with spacebar
+
+Complete countdowns on time to score!"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_group_ = true

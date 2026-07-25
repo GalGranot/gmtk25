@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c8xcu4ydy0lpl" path="res://containers/CardSlot.tscn" id="2_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://28ekwlbq0yn0" path="res://ui/RoundOverScreen.tscn" id="4_c2ibq"]
 [ext_resource type="PackedScene" uid="uid://bm4hmgmnsk8n4" path="res://ui/Hud.tscn" id="4_cm0pq"]
-[ext_resource type="PackedScene" uid="uid://k70ij67yr64k" path="res://ui/QuestionMark.tscn" id="5_fos0i"]
 [ext_resource type="PackedScene" uid="uid://cfb474acgc826" path="res://countdown/CountdownManager.tscn" id="7_lgr22"]
 [ext_resource type="Script" uid="uid://bcto4qak2ckby" path="res://containers/LastPlayed.cs" id="8_trn2v"]
 [ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="9_03owx"]
@@ -22,7 +21,7 @@ rcard = NodePath("RightCard")
 played = NodePath("Played")
 discard_slot = NodePath("Discard")
 last_played = NodePath("LastPlayed")
-question_mark_icon = NodePath("QuestionMark")
+question_mark_icon = NodePath("")
 instructions_scene = ExtResource("2_3dxm6")
 round_timer = NodePath("RoundTimer")
 hud = NodePath("Hud")
@@ -46,10 +45,6 @@ position = Vector2(128, 960)
 position = Vector2(1792, 128)
 
 [node name="Hud" parent="." unique_id=1977890049 instance=ExtResource("4_cm0pq")]
-
-[node name="QuestionMark" parent="." unique_id=697447472 instance=ExtResource("5_fos0i")]
-position = Vector2(1791.9999, 511.99997)
-scale = Vector2(1, 0.99303913)
 
 [node name="CountdownManager" parent="." unique_id=794948173 instance=ExtResource("7_lgr22")]
 
