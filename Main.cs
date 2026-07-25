@@ -221,7 +221,13 @@ public partial class Main : Node {
 
     void on_round_end() {
         Singleton.score = score;
-        GetTree().ChangeSceneToPacked(round_over_screen);
+        FadeToBlack.I.on_finished_fading += on_finished_fading;
+        FadeToBlack.I.transition();
+    }
+
+    void on_finished_fading() {
+        FadeToBlack.I.on_finished_fading -= on_finished_fading;
+        GetTree().ChangeSceneToFile("res://ui/RoundOverScreen.tscn");
     }
 
     /*=============================================================================
