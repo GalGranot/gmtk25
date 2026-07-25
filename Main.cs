@@ -31,6 +31,7 @@ public partial class Main : Node {
     =============================================================================*/
     [Export] QuestionMark question_mark_icon;
     [Export] PackedScene instructions_scene;
+    [Export] RoundTimer round_timer;
     CanvasLayer instructions;
 
     /*=============================================================================
@@ -74,6 +75,8 @@ public partial class Main : Node {
         // UI Initialization
         question_mark_icon.on_click += on_question_mark_clicked;
         hud._Initialize(this);
+        round_timer._Initialize(config.round_len_secs);
+        round_timer.on_round_end += on_round_end;
 
         // Sound Initialization
         card_move_sound.Stream = ResourceLoader.Load<AudioStream>("res://sound/card-take.mp3");
@@ -213,6 +216,10 @@ public partial class Main : Node {
             }
         }
         await Task.WhenAll(playing_slots.Map(deal));
+    }
+
+    void on_round_end() {
+        GD.Print($"Round end"); //! FIXME: rmv
     }
 
     /*=============================================================================
