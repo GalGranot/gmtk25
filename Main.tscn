@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://bcto4qak2ckby" path="res://containers/LastPlayed.cs" id="8_trn2v"]
 [ext_resource type="Texture2D" uid="uid://l2d2yr2xch1t" path="res://sprites/BgPic.png" id="9_03owx"]
 [ext_resource type="Script" uid="uid://by4gdyq68eos6" path="res://ui/SineMovement.cs" id="10_5vvyt"]
-[ext_resource type="AudioStream" uid="uid://bhqbevv6e18r7" path="res://sound/sparkly (sonatina-midi-madness).wav" id="10_wkp8b"]
 [ext_resource type="Script" uid="uid://dttwhlv3s71lw" path="res://game/RoundTimer.cs" id="11_20pc6"]
 [ext_resource type="FontFile" uid="uid://t0607acpieom" path="res://sound/fonts/audex/Audex-Regular.ttf" id="13_c6i3y"]
 
@@ -80,11 +79,6 @@ position = Vector2(928, 544)
 texture = ExtResource("9_03owx")
 script = ExtResource("10_5vvyt")
 metadata/_edit_group_ = true
-
-[node name="BgMusic" type="AudioStreamPlayer" parent="." unique_id=1941758132]
-stream = ExtResource("10_wkp8b")
-volume_db = -9.0
-autoplay = true
 
 [node name="RoundTimer" type="Node" parent="." unique_id=733147028 node_paths=PackedStringArray("timer", "label")]
 script = ExtResource("11_20pc6")

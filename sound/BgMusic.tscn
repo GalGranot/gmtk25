@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://72kke8g231rf"]
+
+[ext_resource type="AudioStream" uid="uid://bhqbevv6e18r7" path="res://sound/sparkly (sonatina-midi-madness).wav" id="1_dbpgv"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=1890431452]
+stream = ExtResource("1_dbpgv")
+volume_db = -9.0
+autoplay = true
