@@ -13,6 +13,6 @@ public partial class MainMenu : Node {
 
 	void on_finished_fading() {
 		FadeToBlack.I.on_finished_fading -= on_finished_fading;
-		GetTree().ChangeSceneToFile("res://main.tscn");
+		GetTree().ChangeSceneToFile("res://Main.tscn");
 	}
 }

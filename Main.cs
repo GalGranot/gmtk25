@@ -264,7 +264,6 @@ public partial class Main : Node {
     void deck_refill() {
         shuffle_sound.Play();
         deck = CardUtils.new_deck();
-        GD.PrintErr($"Deck empty! maybe do something with it"); //! FIXME: rmv
     }
 }
 

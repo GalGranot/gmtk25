@@ -25,3 +25,4 @@ Assembly-CSharp.csproj.lscache
 .DS_STORE
 .vscode
 all_cs_files.txt
+build
